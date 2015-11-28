@@ -41,8 +41,7 @@ Throw all the scripts somewhere in your PATH. Enjoy.
 
 * User guide, good documentation
 * Add more layouts to dytyl
-* Void Linux template, CRUX port, Arch Linux PKGBUILD
-* Makefile
+* Void Linux template
 
 # Known issues
 
