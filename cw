@@ -1,7 +1,7 @@
-#!/bin/sh                   
+#!/bin/dash                   
 #
 # cw - center window
-# (c) arcetera 2015 - wtfpl
+# (c) arcetera 2015 - 
 #
 
 if [ -z "$1" ]; then

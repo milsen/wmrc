@@ -5,8 +5,6 @@
 
 # uncomment to set wallpaper
 #hsetroot -fill [wallpaper] &
-# uncomment for tearing protection and shadows and such if you use a custom compton.conf
-#compton --backend=glx --vsync=opengl &
 # uncomment for notifications
 # dunst &
 # REQUIRED, controls keybinds

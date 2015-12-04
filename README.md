@@ -41,13 +41,11 @@ Throw all the scripts somewhere in your PATH. Enjoy.
 
 * User guide, good documentation
 * Add more layouts to dytyl
-* Void Linux template
+* Void Linux template and CRUX port
 
 # Known issues
 
-* Windows open with the same geometry of the currently focused window
-* cw only works when a second window is opened
-* Please report any other issues! 
+* Please report them!
 
 # Pull requests
 

@@ -1,10 +1,15 @@
 #!/bin/sh 
 #    
 # mgfw - manage groups for windows
-# (c) arcetera 2015 - wtfpl
+# (c) arcetera 2015 - 
 #
 
 . ~/.config/wmrc/config
+
+# configuration
+
+#GRPROOT=/tmp/groups/
+#GRPNUM=5
 
 usage() {
   echo "$(basename $0) [-adsth <gid>]"

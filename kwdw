@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# kwdw - kill window (changes based on what window)
+# (c) arcetera 2015 - 
+#
+
+wid=$(pfw)
+windowc=$(wcls c $wid)
+windowm=$(wcls m $wid)
+
+if [ "$windowm" = "Firefox"; then
+  killwa $wid
+else
+  killw $wid
+fi

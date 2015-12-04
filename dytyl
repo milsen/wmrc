@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # dytyl - dynamic tiling script
-# (c) arcetera 2015 - wtfpl
+# (c) arcetera 2015 - 
 #
 
 . ~/.config/wmrc/config
@@ -13,12 +13,6 @@ usage() {
 
 PFW=$(pfw)
 BW=$(wattr b $PFW)
-ROOT=$(lsw -r)
-SW=$(wattr w $ROOT)
-SH=$(wattr h $ROOT)
-VERT_MASTER=$((SW/2))
-HORIZ_MASTER=$((SH/2))
-MAX=$(lsw|grep -v $PFW|wc -l)
 SW=$((SW - GAP - 2*BW))
 SH=$((SH - GAP - 2*BW - PANEL))
 Y=$((0 + GAP + PANEL))

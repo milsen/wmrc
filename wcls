@@ -1,7 +1,7 @@
 #!/bin/sh
 # 
 # wcls - checks window class
-# (c) arcetera 2015 - wtfpl
+# (c) arcetera 2015 - 
 #
 
 usage() {

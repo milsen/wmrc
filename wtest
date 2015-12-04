@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # wtest - perform actions based on different windows
-# (c) arcetera 2015 - wtfpl
+# (c) arcetera 2015 - 
 #
 
 usage() {
@@ -16,4 +16,11 @@ fi
 wid=$1
 windowc=$(wcls c $wid)
 windowm=$(wcls m $wid)
-cw $wid
+if [ $(lsw | wc -l) -eq 1]; then
+  cw $wid
+elif [ "$windowc" = "Telegram" ]; then
+  cw $wid
+  blrbg
+else
+  cw $wid
+fi
