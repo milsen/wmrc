@@ -1,7 +1,7 @@
 #!/bin/sh 
 #
 # wmrc - dummy script
-# (c) arcetera 2015 - 
+# (c) arcetera 2015 
 #
 
 while true; do

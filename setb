@@ -1,10 +1,12 @@
 #!/bin/sh
 #
 # setb - set border of a window
-# (c) arcetera 2015 - 
+# (c) arcetera 2015 
 #
 
-. ~/.config/wmrc/config
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+
+. $XDG_CONFIG_HOME/wmrc/config
 
 wattr $2 || return
 wattr o $2 && return

@@ -1,10 +1,12 @@
 #!/bin/sh               
 #  
 # crnr - move a window to a corner
-# (c) arcetera 2015 - 
+# (c) arcetera 2015
 #
 
-. ~/.config/wmrc/config
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+
+. $XDG_CONFIG_HOME/wmrc/config
 
 X=0
 Y=0

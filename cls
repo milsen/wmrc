@@ -1,7 +1,7 @@
 #!/bin/sh
 #                
 # cls - focus the closest window
-# (c) arcetera 2015 - 
+# (c) arcetera 2015
 #
 
 CUR=$(pfw)

@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # wchg - perform actions when window status changes
-# (c) arcetera 2015 - 
+# (c) arcetera 2015
 #
 
 while IFS=: read ev wid; do

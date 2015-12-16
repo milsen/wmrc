@@ -1,15 +1,12 @@
 #!/bin/sh 
 #    
 # mgfw - manage groups for windows
-# (c) arcetera 2015 - 
+# (c) arcetera 2015 
 #
 
-. ~/.config/wmrc/config
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 
-# configuration
-
-#GRPROOT=/tmp/groups/
-#GRPNUM=5
+. $XDG_CONFIG_HOME/wmrc/config
 
 usage() {
   echo "$(basename $0) [-adsth <gid>]"
