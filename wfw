@@ -1,7 +1,8 @@
 #!/bin/sh
 #                             
 # wfw - window focus wrapper
-# (c) arcetera 2015 - wtfpl
+# (c) arcetera 2015 
+#
 
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 

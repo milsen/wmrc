@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # kwdw - kill window (changes based on what window)
-# (c) arcetera 2015 - wtfpl
+# (c) arcetera 2015 
 #
 
 wid=$(pfw)

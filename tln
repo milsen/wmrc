@@ -1,7 +1,9 @@
 #!/bin/sh
 #
 # tln - launches a terminal
-# (c) arcetera 2015 - wtfpl
+# (c) arcetera 2015 
+#
+
 for terminal in $TERMINAL x-terminal-emulator termite st urxvt rxvt terminator Eterm aterm xterm gnome-terminal roxterm xfce4-terminal lxterminal mate-terminal terminology; do
     if command -v $terminal > /dev/null 2>&1; then
         exec $terminal "$@"
