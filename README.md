@@ -1,3 +1,5 @@
+This project is dead as I am now using Openbox rather than wmutils. Feel free to use these scripts as reference, but mind the license.
+
 # wmrc
 
 A simple WM powered by wmutils, comprised of pure POSIX-compliant shell scripts.
