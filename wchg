@@ -12,15 +12,10 @@ while IFS=: read ev wid; do
       fi
       ;;
 
-    #16) 
-      #if ! wattr o $wid; then
-      #  wtest $wid
-      #fi
-      #;;
-
-    19) 
+    16) 
       if ! wattr o $wid; then
         wfw $wid
+        wtest $wid
       fi
       ;;
 

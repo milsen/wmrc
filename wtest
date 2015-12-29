@@ -16,7 +16,8 @@ fi
 wid=$1
 windowc=$(wcls c $wid)
 windowm=$(wcls m $wid)
-if [ $(lsw | wc -l) -eq 1]; then
+
+if [ $(lsw | wc -l) -eq 1 ]; then
   cw $wid
 elif [ "$windowc" = "Telegram" ]; then
   cw $wid
