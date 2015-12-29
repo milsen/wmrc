@@ -14,13 +14,27 @@ while IFS=: read ev wid; do
 
     16) 
       if ! wattr o $wid; then
-        wfw $wid
         wtest $wid
+        if [ $(lsw | wc -l) -eq 1 ]; then
+          blrbg &
+        fi
+      fi
+      ;;
+
+    19)
+      if ! wattr o $wid; then
+        wfw $wid 
+	if [ $(lsw | wc -l) -eq 1 ]; then
+	  blrbg &
+	fi
       fi
       ;;
 
     18) 
       wattr $(pfw) || wfw prev 2>/dev/null
+      if [ $(lsw | wc -l) -eq 0 ]; then
+        blrbg 0 &
+      fi
       ;;
 
     7) 
