@@ -10,6 +10,8 @@ windowm=$(wcls m $wid)
 
 if [ "$windowm" = "Firefox" ]; then
   killwa $wid
+elif [ "$windowm" = "URxvt" ]; then
+  killwa $wid
 else
   killw $wid
 fi
