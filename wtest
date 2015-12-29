@@ -18,4 +18,12 @@ windowc=$(wcls c $wid)
 windowm=$(wcls m $wid)
 
 setb active $wid
-crnr md
+if ! wattr o $wid; then
+  if [ "$windowc" = "Navigator" ]; then
+    sleep 1
+  elif [ "$windowc" = "telegram" ]; then
+    sleep 1
+  else
+    wmv -a $(wmp) "$wid"
+  fi
+fi
