@@ -28,6 +28,14 @@ if [ "$wid" = $(pfw) ]; then
 fi
 
 chwso -r $wid           
-wtf $wid                
+wtf $wid     
 setb active $wid   
 setb inactive $CUR 
+
+winx=$(wattr x $(pfw))
+winy=$(wattr y $(pfw))
+winh=$(wattr h $(pfw))
+winw=$(wattr w $(pfw))
+mousex=$((winx + $winw))
+mousey=$((winy + $winh))
+wmp -a $mousex $mousey
