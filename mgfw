@@ -48,9 +48,12 @@ togggrp() {
   wid=$(ls -1 $GRPROOT/$1 | sed 1q)
 
   [ -z "$wid" ] && return
-  wattr m $wid \
-  && hidegrp $1 \
-  || showgrp $1
+  wattr m $wid 
+  if [ $? -eq 0 ]; then
+    hidegrp $1
+  elif [ $? -eq 1 ]; then
+    showgrp $1
+  fi
 }
 
 cgrps() {
@@ -75,7 +78,7 @@ cgrps() {
 
 cgrps
 
-while getopts ":a:wd:gm:t:h:" opt; do
+while getopts ":a:d:gs:t:h:" opt; do
   case $opt in
     a) addtgrp $(pfw) $OPTARG ;;
     d) removefgrp $(pfw) $OPTARG ;;
