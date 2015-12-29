@@ -33,6 +33,7 @@ showgrp() {
     wid=$(basename $file)
     mapw -m $wid
   done
+  echo 1 > $GRPSTATROOT/$1
 }
 
 hidegrp() {
@@ -40,6 +41,7 @@ hidegrp() {
     wid=$(basename $file)
     mapw -u $wid
   done
+  echo 0 > $GRPSTATROOT/$1
 }
 
 togggrp() {
@@ -52,6 +54,9 @@ togggrp() {
 }
 
 cgrps() {
+  if [ ! -d $GRPSTATROOT ]; then
+    mkdir $GRPSTATROOT
+  fi
   for gid in $(seq 1 $GRPNUM ); do
     [ -d $GRPROOT/$gid ] || mkdir -p $GRPROOT/$gid
   done
@@ -59,6 +64,12 @@ cgrps() {
   for file in $(find $GRPROOT -type f); do
     wid=$(basename $file)
     wattr $wid || rm -f $file
+  done
+
+  for gstat in $(seq 1 $GRPNUM); do
+    if [ $(find $GRPROOT/$gstat -maxdepth 0 -type d -empty) ]; then
+      echo 0 > $GRPSTATROOT/$gstat
+    fi
   done
 }
 
@@ -72,7 +83,7 @@ while getopts ":a:wd:gm:t:h:" opt; do
     s) showgrp $OPTARG ;;
     t) togggrp $OPTARG ;;
     h) hidegrp $OPTARG ;;
-    *) usage && exit 0;;
+    *) usage && exit 1 ;;
   esac
 done
 
