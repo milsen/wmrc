@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# killx - kills the X server, cleaning temp files and such
+# (c) arcetera 2015 
+#
+
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
+
+. $XDG_CONFIG_HOME/wmrc/config
+
+rm /tmp/groups/*/*
+rm /tmp/grpstat/*
+echo 0 > /tmp/grpstat/1
+echo 0 > /tmp/grpstat/2
+echo 0 > /tmp/grpstat/3
+echo 0 > /tmp/grpstat/4
+echo 0 > /tmp/grpstat/5
+killall wchg
+killall wew
+killall wmrc
+killall sxhkd
+killall xinit

@@ -40,7 +40,6 @@ Throw all the scripts somewhere in your PATH. Enjoy.
 ## TODO
 
 * User guide, good documentation
-* Add more layouts to dytyl
 * Void Linux template and CRUX port
 
 # Known issues

@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# snp - snap a window left, right, up, down
+# (c) arcetera 2015 
+#
+
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
+
+. $XDG_CONFIG_HOME/wmrc/config
+
+usage() {
+  printf '%s\n' "usage: $(basename $0) <left|down|up|right> <wid>"
+}
+
+case $2 in
+  0x*) PFW=$2 ;;
+esac
+
+right() {
+  wmv $WW 0 $PFW
+}
+
+left() {
+  wmv $((-1*WW)) 0 $PFW
+}
+
+down() {
+  wmv 0 $WH $PFW
+}
+
+up() {
+  wmv 0 $((-1*WH)) $PFW
+}
+
+case $1 in
+  left) left ;;
+  right) right ;;
+  down) down ;;
+  up) up ;;
+  *) usage ;;
+esac

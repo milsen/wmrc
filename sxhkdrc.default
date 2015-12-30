@@ -55,6 +55,6 @@ super + shift + {q,w,a,s}
 super + shift + space
         cw $(pfw)
 
-# switches between different layouts
-super + shift + {Left,Right,Up}
-        echo "$NOTILE" | grep -q "$(wname $WID)" || dytyl {default,spiral,float} 
+# snaps a window
+super + shift + {Left,Right,Up,Down}
+        snp {left,right,up,down}
