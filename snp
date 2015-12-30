@@ -17,19 +17,19 @@ case $2 in
 esac
 
 right() {
-  wmv $WW 0 $PFW
+  wmv $((SW/4)) 0 $PFW
 }
 
 left() {
-  wmv $((-1*WW)) 0 $PFW
+  wmv $((-1*SW/4)) 0 $PFW
 }
 
 down() {
-  wmv 0 $WH $PFW
+  wmv 0 $((SH/4)) $PFW
 }
 
 up() {
-  wmv 0 $((-1*WH)) $PFW
+  wmv 0 $((-1*SH/4)) $PFW
 }
 
 case $1 in
