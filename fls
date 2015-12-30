@@ -26,3 +26,4 @@ else
 fi
 
 wfw $1
+setb active $1
