@@ -35,12 +35,13 @@ Uncomment the features you would like in `.xinitrc`.
 
 Copy `config.default` to `~/.config/wmrc/config`.
 
+If you wish to use `pulsew`, then copy `colors.default` to `~/.colors`.
+
 Throw all the scripts somewhere in your PATH. Enjoy.
 
 ## TODO
 
 * User guide, good documentation
-* Void Linux template and CRUX port
 
 # Known issues
 
