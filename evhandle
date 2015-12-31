@@ -23,7 +23,7 @@ while IFS=: read ev wid; do
       groupmgr > /dev/null
       ;;
 
-    7) 
+    4) 
       if ! wattr o $wid; then
         focuswrap $wid 
       fi

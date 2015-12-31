@@ -16,7 +16,8 @@ First off,  you need to compile/install the following:
 
 * wmutils/libwm
 * wmutils/core
-* wmutils/opt
+* My fork of wmutils/opt 
+* killwa
 * sxhkd
 * dmenu (or some menu, I use interrobang)
 * Any virtual terminal (if your terminal is not properly detected by `tln`, you will have to edit `tln`)
@@ -36,6 +37,8 @@ Uncomment the features you would like in `.xinitrc`.
 Copy `config.default` to `~/.config/wmrc/config`.
 
 If you wish to use `pulsew`, then copy `colors.default` to `~/.colors`.
+
+Navigate to `opt/` and run `make`. This is required for use of the mouse when focusing windows. If you do not want this, change `4` to `7` in `evhandle`.
 
 Throw all the scripts somewhere in your PATH. Enjoy.
 
