@@ -1,6 +1,6 @@
 #!/bin/sh
 #                    
-# fls - fullscreen window
+# fullw - fullscreen window
 # (c) arcetera 2015 
 #
 
@@ -25,5 +25,5 @@ else
   chwb -s 0 $1
 fi
 
-wfw $1
-setb active $1
+focuswrap $1
+setborder active $1

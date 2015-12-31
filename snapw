@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# snp - snap a window left, right, up, down
+# snapw - snap a window left, right, up, down
 # (c) arcetera 2015 
 #
 

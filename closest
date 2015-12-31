@@ -1,6 +1,6 @@
 #!/bin/sh
 #                
-# cls - focus the closest window
+# closest - focus the closest window
 # (c) arcetera 2015
 #
 
@@ -28,8 +28,8 @@ next_south() {
 }
 
 case $1 in
-  h|a|east|left)  wfw $(next_east)  2>/dev/null ;;
-  j|s|south|down) wfw $(next_south) 2>/dev/null ;;
-  k|w|north|up)   wfw $(next_north) 2>/dev/null ;;
-  l|d|west|right) wfw $(next_west)  2>/dev/null ;;
+  h|a|east|left)  focuswrap $(next_east)  2>/dev/null ;;
+  j|s|south|down) focuswrap $(next_south) 2>/dev/null ;;
+  k|w|north|up)   focuswrap $(next_north) 2>/dev/null ;;
+  l|d|west|right) focuswrap $(next_west)  2>/dev/null ;;
 esac

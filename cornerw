@@ -1,6 +1,6 @@
 #!/bin/sh               
 #  
-# crnr - move a window to a corner
+# cornerw - move a window to a corner
 # (c) arcetera 2015
 #
 

@@ -1,36 +1,31 @@
 #!/bin/sh
 #
-# wchg - perform actions when window status changes
+# evhandle - perform actions when window status changes
 # (c) arcetera 2015
 #
 
 while IFS=: read ev wid; do
   case $ev in
-    4) 
-      if ! wattr o $wid; then
-        wfw $wid
-      fi
-      ;;
-
     16) 
       if ! wattr o $wid; then
-        wtest $wid
+        winopen $wid
       fi
       ;;
 
     19)
       if ! wattr o $wid; then
-        wfw $wid 
+        focuswrap $wid
       fi
       ;;
 
     18) 
-      wattr $(pfw) || wfw prev 2>/dev/null
+      wattr $(pfw) || focuswrap prev kb 2>/dev/null
+      groupmgr > /dev/null
       ;;
 
     7) 
       if ! wattr o $wid; then
-        wfw $wid 
+        focuswrap $wid 
       fi
       ;;
   esac

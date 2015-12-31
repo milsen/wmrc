@@ -1,6 +1,6 @@
 #!/bin/sh
 #                             
-# wfw - window focus wrapper
+# focuswrap - window focus wrapper
 # (c) arcetera 2015 
 #
 
@@ -23,14 +23,13 @@ esac
 [ -z "$wid" ] && { echo "$(basename $0): no window to focus" >&2; exit 1; }
 
 if [ "$wid" = $(pfw) ]; then
-  echo "window to focus is the focused window"
   exit 1
 fi
 
 chwso -r $wid           
 wtf $wid     
-setb active $wid   
-setb inactive $CUR 
+setborder active $wid   
+setborder inactive $CUR 
 
 winx=$(wattr x $(pfw))
 winy=$(wattr y $(pfw))
@@ -39,3 +38,5 @@ winw=$(wattr w $(pfw))
 mousex=$((winx + $winw))
 mousey=$((winy + $winh))
 wmp -a $mousex $mousey
+setb active $wid
+setb inactive $CUR

@@ -7,9 +7,11 @@
 #hsetroot -fill [wallpaper] &
 # uncomment for notifications
 # dunst &
+# uncomment for pulsing window borders
+# pulsew &
 # REQUIRED, controls keybinds
 sxhkd &
 # REQUIRED, controls actions upon window status changes
-wew | wchg &
+wew | evwatch &
 # REQUIRED, launches dummy script so X runs
-exec wmrc
+exec xwait

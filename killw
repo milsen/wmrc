@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# kwdw - kill window (changes based on what window)
+# killw - kill window (changes based on what window)
 # (c) arcetera 2015 
 #
 
