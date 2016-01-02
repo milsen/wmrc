@@ -32,4 +32,5 @@ case $1 in
   j|s|south|down) focuswrap $(next_south) 2>/dev/null ;;
   k|w|north|up)   focuswrap $(next_north) 2>/dev/null ;;
   l|d|west|right) focuswrap $(next_west)  2>/dev/null ;;
+  *) usage ;;
 esac
