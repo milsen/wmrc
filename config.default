@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # wmrc config - global variables for wmrc
-# (c) arcetera 2015 
+# (c) arcetera 2015
 #
 
 # required (you probably don't want to change these)
@@ -18,9 +18,10 @@ PFW=$(pfw)
 
 # files used for storing things like window geometry, etc (be VERY careful with these)
 
-FSFILE=${FSFILE:-~/.fwin} ## stores window geometry for fullscreen
-GRPROOT=/tmp/groups       ## where groups are stored
-GRPSTATROOT=/tmp/grpstat  ## where group status is stored
+FSFILE=${FSFILE:-~/.fwin}       ## stores window geometry for fullscreen
+GRPROOT=/tmp/groups             ## where groups are stored
+GRPSTATROOT=/tmp/grpstat        ## where group status is stored
+PULSECOLS=~/.config/wmrc/colors ## colors to pulse
 
 # groups
 

@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # snapw - snap a window left, right, up, down
-# (c) arcetera 2015 
+# (c) arcetera 2015
 #
 
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
@@ -13,23 +13,25 @@ usage() {
 }
 
 case $2 in
-  0x*) PFW=$2 ;;
+  0x*) CUR=$2 ;;
 esac
 
 right() {
-  wmv $((SW/4)) 0 $PFW
+  left
+  wmv $((SW/2 - BWIDTH)) 0 $CUR
 }
 
 left() {
-  wmv $((-1*SW/4)) 0 $PFW
+  wtp 0 0 $((SW/2 - BWIDTH)) $((SH - BWIDTH*2)) $CUR
 }
 
 down() {
-  wmv 0 $((SH/4)) $PFW
+  up
+  wmv 0 $((SH/2 - BWIDTH)) $CUR
 }
 
 up() {
-  wmv 0 $((-1*SH/4)) $PFW
+  wtp 0 0 $((SW - BWIDTH*2)) $((SH/2 - BWIDTH)) $CUR
 }
 
 case $1 in
