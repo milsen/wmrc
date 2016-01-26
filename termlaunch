@@ -1,7 +1,7 @@
 #!/bin/sh
 #
-# tln - launches a terminal
-# (c) arcetera 2015 
+# termlaunch - launches a terminal
+# (c) arcetera 2016
 #
 
 for terminal in $TERMINAL x-terminal-emulator termite st urxvt rxvt terminator Eterm aterm xterm gnome-terminal roxterm xfce4-terminal lxterminal mate-terminal terminology; do

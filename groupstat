@@ -1,7 +1,7 @@
 #!/bin/sh
 #
-# gstat - prints all groups and which ones are on/off
-# (c) arcetera 2015
+# groupstat - prints all groups and which ones are on/off
+# (c) arcetera 2016
 #
 
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}

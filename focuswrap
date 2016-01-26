@@ -1,7 +1,7 @@
 #!/bin/sh
-#                             
+#
 # focuswrap - window focus wrapper
-# (c) arcetera 2015 
+# (c) arcetera 2016
 #
 
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
@@ -26,10 +26,10 @@ if [ "$wid" = $(pfw) ]; then
   exit 1
 fi
 
-chwso -r $wid           
-wtf $wid     
-setborder active $wid   
-setborder inactive $CUR 
+chwso -r $wid
+wtf $wid
+setborder active $wid
+setborder inactive $CUR
 
 winx=$(wattr x $(pfw))
 winy=$(wattr y $(pfw))
