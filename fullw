@@ -9,21 +9,31 @@ XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 . $XDG_CONFIG_HOME/wmrc/config
 
 usage() {
-  echo "usage: $(basename $0) <wid>"
+  echo "usage: $(basename $0) <display> <wid>"
   exit 1
 }
 
-[ -z "$1" ] && usage
+full() {
+  local MONITOR=${1:-$(pfd)}
+  local WINDOW=${2:-$(pfw)}
+  wattr xywhi $WINDOW > $FSFILE
+  wtp $(dattr $MONITOR) $WINDOW
+  focuswrap $WINDOW
+  chwb -s 0 $WINDOW
+}
 
-[ -f $FSFILE ] && wtp $(cat $FSFILE)
-
-if [ -f $FSFILE ] && grep -q $1 $FSFILE; then
+unfull() {
+  wtp $(cat $FSFILE)
   rm -f $FSFILE
-else
-  wattr xywhi $1 > $FSFILE
-  wtp $(wattr xywh `lsw -r`) $1
-  chwb -s 0 $1
-fi
+  setborder active $(pfw)
+}
 
-focuswrap $1
-setborder active $1
+[ -z "$1" ] && [ -z "$2" ] && usage
+
+lsd | grep -q $1 || usage
+
+if [ -f $FSFILE ]; then
+  unfull
+else
+  full $1 $2
+fi

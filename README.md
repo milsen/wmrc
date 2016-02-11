@@ -10,13 +10,14 @@ A simple WM powered by wmutils, comprised of pure POSIX-compliant shell scripts.
 
 A simple, automated method of installation will be added later (Void template, CRUX port, Arch PKGBUILD), but not yet. Hold on.
 
-Note that this expects that you run `startx` from a tty, not use a login manager (e.g. `gdm`, `sddm`, etc). 
+Note that this expects that you run `startx` from a tty, not use a login manager (e.g. `gdm`, `sddm`, etc).
 
 First off,  you need to compile/install the following:
 
 * wmutils/libwm
 * wmutils/core
-* My fork of wmutils/opt 
+* My fork of wmutils/opt
+* [disputils](https://github.com/ix/disputils)
 * killwa
 * sxhkd
 * dmenu (or some menu, I use interrobang)
