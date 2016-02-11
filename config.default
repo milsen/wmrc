@@ -11,8 +11,8 @@ WW=$(wattr w $WID)
 WH=$(wattr h $WID)
 CUR=${2:-$(pfw)}
 ROOT=$(lsw -r)
-SW=$(wattr w $ROOT)
-SH=$(wattr h $ROOT)
+SW=$(dattr $(pfd) | awk '{print $3}')
+SH=$(dattr $(pfd) | awk '{print $4}')
 BWIDTH=$(wattr b $CUR)
 PFW=$(pfw)
 
