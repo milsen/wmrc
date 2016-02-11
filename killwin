@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # killwin - kill window (changes based on what window)
-# (c) arcetera 2016
+# (c) arcetera && wildefyr 2016
 #
 
 wid=$(pfw)
