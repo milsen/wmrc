@@ -7,6 +7,8 @@
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 
 . $XDG_CONFIG_HOME/wmrc/config
+. $XDG_CONFIG_HOME/wmrc/globals
+. $XDG_CONFIG_HOME/wmrc/disp
 
 X=$SX
 Y=$SY
@@ -21,7 +23,8 @@ case $1 in
     ;;
   md)
     X=$((SW/2 + SX - WW/2 - BWIDTH))
-    Y=$((SH/2 + SY - WH/2 - BWIDTH)) ;;
+    Y=$((SH/2 + SY - WH/2 - BWIDTH))
+    ;;
 esac
 
 wtp $X $Y $WW $WH $CUR

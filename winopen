@@ -14,10 +14,11 @@ if [ -z $1 ]; then
 fi
 
 wid=$1
-windowc=$(winclass c $wid)
-windowm=$(winclass m $wid)
+windowc=$(winclass -c $wid)
+windowm=$(winclass -m $wid)
 
 setborder active $wid
+
 if ! wattr o $wid; then
   if [ "$windowc" = "Navigator" ]; then
     sleep 1

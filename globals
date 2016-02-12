@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# wmrc globals - global variables for wmrc
+# (c) ix 2016
+#
+
+WID=$(pfw)
+WW=$(wattr w $WID)
+WH=$(wattr h $WID)
+CUR=${2:-$(pfw)}
+ROOT=$(lsw -r)
+BWIDTH=$(wattr b $CUR)
+PFW=$(pfw)

@@ -4,20 +4,6 @@
 # (c) ix 2016
 #
 
-# required (you probably don't want to change these)
-
-WID=$(pfw)
-WW=$(wattr w $WID)
-WH=$(wattr h $WID)
-CUR=${2:-$(pfw)}
-ROOT=$(lsw -r)
-SW=$(dattr -w $(pfd))
-SH=$(dattr -h $(pfd))
-SX=$(dattr -x $(pfd))
-SY=$(dattr -y $(pfd))
-BWIDTH=$(wattr b $CUR)
-PFW=$(pfw)
-
 # files used for storing things like window geometry, etc (be VERY careful with these)
 
 FSFILE=${FSFILE:-~/.fwin}       ## stores window geometry for fullscreen
@@ -31,7 +17,7 @@ GRPNUM=5 ## number of groups
 
 # borders
 
-BW=${BW:-2}                    ## border width
-ACTIVE=${ACTIVE:-0xffffff}     ## border color of active window
-INACTIVE=${INACTIVE:-0x000000} ## border color of inactive window
+BW=${BW:-4}                    ## border width
+ACTIVE=${ACTIVE:-0xa69181}     ## border color of active window
+INACTIVE=${INACTIVE:-0x484542} ## border color of inactive window
 FREQ=0.08                      ## frequency to pulse borders

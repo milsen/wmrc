@@ -4,7 +4,9 @@
 # (c) ix 2016
 #
 
-CUR=$(pfw)
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
+
+. $XDG_CONFIG_HOME/wmrc/globals
 
 usage() {
   echo "usage: $(basename $0) <direction>" >&2

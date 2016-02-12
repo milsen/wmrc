@@ -9,10 +9,9 @@ XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
 . $XDG_CONFIG_HOME/wmrc/config
 
 while :; do
-    cols=$(tac < ~/.colors | cat - ~/.colors | tr -d '#')
-    for col in $cols; do
-        CUR=$(pfw)
-        test "`wattr wh $CUR`" != "`wattr wh $(lsw -r)`" && chwb -c $col $CUR
-        sleep $FREQ
-    done
+  cols=$(tac < $PULSECOLS | cat - $PULSECOLS | tr -d '#')
+  for col in $cols; do
+    test "`wattr wh $PFW`" != "`wattr wh $(lsw -r)`" && chwb -c $col $PFW
+    sleep $FREQ
+  done
 done

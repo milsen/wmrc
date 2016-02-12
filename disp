@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# wmrc display variables
+# (c) ix 2016
+#
+
+# these are seperate from the rest of the
+# global variables as they have to run dattr
+# and pfd, which can be rather slow during
+# some tasks
+
+SW=$(dattr -w $(pfd))
+SH=$(dattr -h $(pfd))
+SX=$(dattr -x $(pfd))
+SY=$(dattr -y $(pfd))

@@ -40,6 +40,9 @@ Uncomment the features you would like in `.xinitrc`.
 
 Copy `config.default` to `~/.config/wmrc/config`.
 
+`globals` and `disp` go in `~/.config/wmrc/`. These are global variables which
+you absolutely need, or there will be quite bad damage to ~.
+
 If you wish to use `pulsew`, then copy `colors.default` to `~/.colors`.
 
 Navigate to `opt/` and run `make`. This is required for use of the mouse when focusing windows. If you do not want this, change `4` to `7` in `evhandle`.

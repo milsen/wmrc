@@ -6,7 +6,8 @@
 
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
 
-. $XDG_CONFIG_HOME/wmrc/config
+. $XDG_CONFIG_HOME/wmrc/globals
+. $XDG_CONFIG_HOME/wmrc/disp
 
 usage() {
   printf '%s\n' "usage: $(basename $0) <left|down|up|right> <wid>"
@@ -17,21 +18,19 @@ case $2 in
 esac
 
 right() {
-  left
-  wmv $((SW/2 - BWIDTH)) 0 $CUR
+  wtp $((SX + SW - SW/2)) $SY $((SW/2 - 2*BWIDTH)) $((SH - 2*BWIDTH)) $PFW
 }
 
 left() {
-  wtp 0 0 $((SW/2 - BWIDTH)) $((SH - BWIDTH*2)) $CUR
+  wtp $SX $SY $((SW/2 - 2*BWIDTH)) $((SH - 2*BWIDTH)) $PFW
 }
 
 down() {
-  up
-  wmv 0 $((SH/2 - BWIDTH)) $CUR
+  wtp $SX $((SY + SH - SH/2)) $((SW - 2*BWIDTH)) $((SH/2 - 2*BWIDTH)) $PFW
 }
 
 up() {
-  wtp 0 0 $((SW - BWIDTH*2)) $((SH/2 - BWIDTH)) $CUR
+  wtp $SX $SY $((SW - 2*BWIDTH)) $((SH/2 - 2*BWIDTH)) $PFW
 }
 
 case $1 in
