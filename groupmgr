@@ -4,6 +4,14 @@
 # (c) ix 2016
 #
 
+## FALLBACK VARIABLES
+# As this script makes changes to
+# the filesystem, these are here for extra
+# safety.
+
+GRPROOT=/tmp/groups
+GRPSTATROOT=/tmp/grpstat
+
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 
 . $XDG_CONFIG_HOME/wmrc/config
