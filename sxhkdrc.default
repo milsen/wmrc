@@ -41,7 +41,7 @@ super + shift + e
 
 # fullscreens window
 super + f
-        fullw $(pfw)
+        fullw $(pfd) $(pfw)
 
 # focuses the closest window
 super + {h,j,k,l}
