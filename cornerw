@@ -12,6 +12,7 @@ X=$SX
 Y=$SY
 
 case $1 in
+  tl) X=$SX ;;
   tr) X=$((SW + SX - WW - BWIDTH*2)) ;;
   bl) Y=$((SH + SY - WH - BWIDTH*2)) ;;
   br)
