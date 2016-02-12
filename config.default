@@ -11,8 +11,10 @@ WW=$(wattr w $WID)
 WH=$(wattr h $WID)
 CUR=${2:-$(pfw)}
 ROOT=$(lsw -r)
-SW=$(dattr $(pfd) | awk '{print $3}')
-SH=$(dattr $(pfd) | awk '{print $4}')
+SW=$(dattr -w $(pfd))
+SH=$(dattr -h $(pfd))
+SX=$(dattr -x $(pfd))
+SY=$(dattr -y $(pfd))
 BWIDTH=$(wattr b $CUR)
 PFW=$(pfw)
 
@@ -30,6 +32,6 @@ GRPNUM=5 ## number of groups
 # borders
 
 BW=${BW:-2}                    ## border width
-ACTIVE=${ACTIVE:-0x000000}     ## border color of active window
-INACTIVE=${INACTIVE:-0xffffff} ## border color of inactive window
+ACTIVE=${ACTIVE:-0xffffff}     ## border color of active window
+INACTIVE=${INACTIVE:-0x000000} ## border color of inactive window
 FREQ=0.08                      ## frequency to pulse borders
