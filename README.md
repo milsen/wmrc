@@ -1,3 +1,7 @@
+_@eris aka "i'm too hipster for a real window manager did i mention i hate
+myself"_
+- me
+
 # wmrc
 
 A simple WM powered by wmutils, comprised of pure POSIX-compliant shell scripts.
