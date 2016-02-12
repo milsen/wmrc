@@ -8,19 +8,19 @@ XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 
 . $XDG_CONFIG_HOME/wmrc/config
 
-X=0
-Y=0
+X=$SX
+Y=$SY
 
 case $1 in
-  tr) X=$((SW - WW - BWIDTH*2)) ;;
-  bl) Y=$((SH - WH - BWIDTH*2)) ;;
+  tr) X=$((SW + SX - WW - BWIDTH*2)) ;;
+  bl) Y=$((SH + SY - WH - BWIDTH*2)) ;;
   br)
-    X=$((SW - WW - BWIDTH*2))
-    Y=$((SH - WH - BWIDTH*2))
+    X=$((SW + SX - WW - BWIDTH*2))
+    Y=$((SH + SY - WH - BWIDTH*2))
     ;;
   md)
-    X=$((SW/2 - WW/2 - BWIDTH))
-    Y=$((SH/2 - WH/2 - BWIDTH)) ;;
+    X=$((SW/2 + SX - WW/2 - BWIDTH))
+    Y=$((SH/2 + SY - WH/2 - BWIDTH)) ;;
 esac
 
 wtp $X $Y $WW $WH $CUR
