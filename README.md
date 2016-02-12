@@ -1,6 +1,5 @@
 _@eris aka "i'm too hipster for a real window manager did i mention i hate
-myself"_
-- me
+myself"_ - me
 
 # wmrc
 
