@@ -9,7 +9,7 @@
 # and pfd, which can be rather slow during
 # some tasks
 
-SW=$(dattr -w $(pfd))
-SH=$(dattr -h $(pfd))
-SX=$(dattr -x $(pfd))
-SY=$(dattr -y $(pfd))
+SW=$(dattr -w $(pfd) &)
+SH=$(dattr -h $(pfd) &)
+SX=$(dattr -x $(pfd) &)
+SY=$(dattr -y $(pfd) &)
