@@ -12,6 +12,11 @@ wattr $2 || return
 wattr o $2 && return
 
 [ "$(wattr xywh $2)" = "$(wattr xywh $ROOT)" ] && return
+if [ -f $FSFILE ]; then
+  if [ "$(cat $FSFILE | awk '{print $5}')" = "$2" ]; then
+    exit 0
+  fi
+fi
 
 case $1 in
   active) chwb -s $BW -c $ACTIVE $2 ;;
