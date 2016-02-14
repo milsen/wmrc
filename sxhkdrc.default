@@ -58,3 +58,7 @@ super + shift + space
 # snaps a window
 super + shift + {Left,Right,Up,Down}
         snapw {left,right,up,down}
+
+# cornering and snapping
+super + ctrl + {q,w,a,s}
+        snapw {tl,tr,bl,br}

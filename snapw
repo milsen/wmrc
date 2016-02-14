@@ -36,10 +36,31 @@ up() {
   wtp $((SX + GAP)) $((SY + GAP + PANEL)) $((SW - 2*GAP - 2*BWIDTH)) $((SH/2 - 2*BWIDTH - GAP - GAP/2)) $PFW
 }
 
+topright() {
+  wtp $((SX + SW - SW/2 + GAP/2)) $((SY + GAP + PANEL)) $HSW $HSH $PFW
+}
+
+topleft() {
+  wtp $((SX + GAP)) $((SY + GAP + PANEL)) $HSW $HSH $PFW
+}
+
+bottomright() {
+  wtp $((SX + SW - SW/2 + GAP/2)) $((SY + SH - SH/2 + GAP/2 + PANEL)) $HSW $HSH $PFW
+}
+
+
+bottomleft() {
+  wtp $((SX + GAP)) $((SY + SH - SH/2 + GAP/2 + PANEL)) $HSW $HSH $PFW
+}
+
 case $1 in
   left) left ;;
   right) right ;;
   down) down ;;
   up) up ;;
+  tr) topright ;;
+  tl) topleft ;;
+  br) bottomright ;;
+  bl) bottomleft ;;
   *) usage ;;
 esac
