@@ -1,12 +1,12 @@
 #!/bin/sh
 #
 # wmrc config - global variables for wmrc
-# (c) ix 2016
+# (c) arcetera 2016
 #
 
 # files used for storing things like window geometry, etc (be VERY careful with these)
 
-FSFILE=${FSFILE:-~/.fwin}       ## stores window geometry for fullscreen
+FSFILE=${FSFILE:-/tmp/full}     ## stores window geometry for fullscreen
 GRPROOT=/tmp/groups             ## where groups are stored
 GRPSTATROOT=/tmp/grpstat        ## where group status is stored
 PULSECOLS=~/.config/wmrc/colors ## colors to pulse
@@ -18,6 +18,11 @@ GRPNUM=5 ## number of groups
 # borders
 
 BW=${BW:-4}                    ## border width
-ACTIVE=${ACTIVE:-0xa69181}     ## border color of active window
-INACTIVE=${INACTIVE:-0x484542} ## border color of inactive window
+ACTIVE=${ACTIVE:-0x87766a}     ## border color of active window
+INACTIVE=${INACTIVE:-0x3c3732} ## border color of inactive window
 FREQ=0.08                      ## frequency to pulse borders
+
+# snapping
+
+PANEL=50 ## height of the top panel
+GAP=20   ## gaps between windows

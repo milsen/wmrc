@@ -6,6 +6,7 @@
 
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
 
+. $XDG_CONFIG_HOME/wmrc/config
 . $XDG_CONFIG_HOME/wmrc/globals
 . $XDG_CONFIG_HOME/wmrc/disp
 
@@ -18,19 +19,21 @@ case $2 in
 esac
 
 right() {
-  wtp $((SX + SW - SW/2)) $SY $((SW/2 - 2*BWIDTH)) $((SH - 2*BWIDTH)) $PFW
+  wtp $((SX + SW - SW/2 + GAP/2)) $((SY + GAP + PANEL)) $((SW/2 - 2*BWIDTH - GAP - GAP/2)) $((SH - 2*BWIDTH - 2*GAP)) $PFW
 }
 
 left() {
-  wtp $SX $SY $((SW/2 - 2*BWIDTH)) $((SH - 2*BWIDTH)) $PFW
+  wtp $((SX + GAP)) $((SY + GAP + PANEL)) $((SW/2 - 2*BWIDTH - GAP - GAP/2)) $((SH - 2*BWIDTH - 2*GAP)) $PFW
 }
 
 down() {
-  wtp $SX $((SY + SH - SH/2)) $((SW - 2*BWIDTH)) $((SH/2 - 2*BWIDTH)) $PFW
+  up
+  #wtp $((SX + GAP)) $((SY + SH - SH/2)) $((SW - 2*GAP - 2*BWIDTH)) $((SH/2 - 2*BWIDTH - GAP - GAP/2)) $PFW
+  wmv 0 $((SH/2 - BWIDTH - GAP/2)) $PFW
 }
 
 up() {
-  wtp $SX $SY $((SW - 2*BWIDTH)) $((SH/2 - 2*BWIDTH)) $PFW
+  wtp $((SX + GAP)) $((SY + GAP + PANEL)) $((SW - 2*GAP - 2*BWIDTH)) $((SH/2 - 2*BWIDTH - GAP - GAP/2)) $PFW
 }
 
 case $1 in

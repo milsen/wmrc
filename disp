@@ -9,7 +9,12 @@
 # and pfd, which can be rather slow during
 # some tasks
 
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
+
+. $XDG_CONFIG_HOME/wmrc/config
+
 SW=$(dattr -w $(pfd) &)
-SH=$(dattr -h $(pfd) &)
+BSH=$(dattr -h $(pfd) &)
 SX=$(dattr -x $(pfd) &)
 SY=$(dattr -y $(pfd) &)
+SH=$((BSH - PANEL))
