@@ -11,6 +11,7 @@
 
 GRPROOT=/tmp/groups
 GRPSTATROOT=/tmp/grpstat
+GRPNUM=5
 
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 
