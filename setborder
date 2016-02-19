@@ -12,10 +12,10 @@ wattr $2 || return
 wattr o $2 && return
 
 [ "$(wattr xywh $2)" = "$(wattr xywh $ROOT)" ] && return
-if [ -f $FSFILE ]; then
-  if [ "$(cat $FSFILE | awk '{print $5}')" = "$2" ]; then
-    exit 0
-  fi
+if [ -f $FSFILE ] \
+  && [ "$(cat $FSFILE | awk '{print $5}')" = "$2" ] \
+  && [ "$(wattr x $(pfw))" = "$(cat $FSFILE | awk '{print $1}')" ]; then
+  exit 1
 fi
 
 case $1 in
