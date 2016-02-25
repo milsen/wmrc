@@ -27,9 +27,13 @@ addtgrp() {
 }
 
 removefgrp() {
-  [ "$2" = "all" ] \
-  && rm -f $GRPROOT/*/$1 \
-  || rm -f $GRPROOT/$2/$1
+  if [ "$2" = "all" ]; then
+    for grp in "$(seq $GRPNUM)"; do
+      rm -f $GRPROOT/*/$1
+    done
+  else
+    rm -f $GRPROOT/$2/$1
+  fi
 }
 
 findgrp() {
