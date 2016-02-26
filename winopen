@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# winclass - perform actions based on different windows
+# winopen - perform actions based on different windows
 # (c) ix && wildefyr 2016
 #
 
