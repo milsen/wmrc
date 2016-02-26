@@ -7,6 +7,7 @@
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 
 . $XDG_CONFIG_HOME/wmrc/config
+. $XDG_CONFIG_HOME/wmrc/globals
 
 wattr $2 || return
 wattr o $2 && return
@@ -14,7 +15,7 @@ wattr o $2 && return
 [ "$(wattr xywh $2)" = "$(wattr xywh $ROOT)" ] && return
 if [ -f $FSFILE ] \
   && [ "$(cat $FSFILE | awk '{print $5}')" = "$2" ] \
-  && [ "$(wattr x $(pfw))" = "$(cat $FSFILE | awk '{print $1}')" ]; then
+  && [ "$(wattr x $CUR)" = "$(cat $FSFILE | awk '{print $1}')" ]; then
   exit 1
 fi
 

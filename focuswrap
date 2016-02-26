@@ -22,7 +22,7 @@ esac
 
 [ -z "$wid" ] && { echo "$(basename $0): no window to focus" >&2; exit 1; }
 
-if [ "$wid" = $(pfw) ]; then
+if [ "$wid" = $CUR ]; then
   exit 1
 fi
 

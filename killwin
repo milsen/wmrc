@@ -4,14 +4,17 @@
 # (c) ix && wildefyr 2016
 #
 
-wid=$(pfw)
-windowc=$(winclass -c $wid)
-windowm=$(winclass -m $wid)
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
+
+. $XDG_CONFIG_HOME/wmrc/globals
+
+windowc=$(winclass -c $CUR)
+windowm=$(winclass -m $CUR)
 
 if [ "$windowm" = "Firefox" ]; then
-  killwa $wid
+  killwa $CUR
 elif [ "$windowc" = "urxvt" ]; then
-  killwa $wid
+  killwa $CUR
 else
-  killw $wid
+  killw $CUR
 fi
