@@ -16,8 +16,8 @@ usage() {
 }
 
 full() {
-  local MONITOR=${1:-$(pfd)}
-  local WINDOW=${2:-$(pfw)}
+  local MONITOR=${1:-$CURDISP}
+  local WINDOW=${2:-$CUR}
   wattr xywhi $WINDOW > $FSFILE
   wtp $(dattr $MONITOR) $WINDOW
   focuswrap $WINDOW
@@ -27,7 +27,7 @@ full() {
 unfull() {
   wtp $(cat $FSFILE)
   rm -f $FSFILE
-  setborder active $(pfw)
+  setborder active $CUR
 }
 
 [ -z "$1" ] && [ -z "$2" ] && usage

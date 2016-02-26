@@ -16,6 +16,7 @@ GRPNUM=5
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 
 . $XDG_CONFIG_HOME/wmrc/config
+. $XDG_CONFIG_HOME/wmrc/globals
 
 usage() {
   echo "$(basename $0) [-adsth <gid>]"
@@ -93,9 +94,9 @@ cgrps
 
 while getopts ":a:d:gs:t:h:" opt; do
   case $opt in
-    a) addtgrp $(pfw) $OPTARG ;;
-    d) removefgrp $(pfw) $OPTARG ;;
-    g) findgrp $(pfw) ;;
+    a) addtgrp $CUR $OPTARG ;;
+    d) removefgrp $CUR $OPTARG ;;
+    g) findgrp $CUR ;;
     s) showgrp $OPTARG ;;
     t) togggrp $OPTARG ;;
     h) hidegrp $OPTARG ;;
