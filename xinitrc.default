@@ -12,6 +12,6 @@
 # REQUIRED, controls keybinds
 sxhkd &
 # REQUIRED, controls actions upon window status changes
-wew | evwatch &
+wew | evhandle &
 # REQUIRED, launches dummy script so X runs
 exec xwait
