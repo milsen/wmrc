@@ -62,3 +62,7 @@ super + shift + {Left,Right,Up,Down}
 # cornering and snapping
 super + ctrl + {q,w,a,s}
         snapw {tl,tr,bl,br}
+
+# expanding
+super + {v,b}
+		expandw -{v,h} $(pfw)

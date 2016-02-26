@@ -10,6 +10,7 @@ FSFILE=${FSFILE:-/tmp/full}     ## stores window geometry for fullscreen
 GRPROOT=/tmp/groups             ## where groups are stored
 GRPSTATROOT=/tmp/grpstat        ## where group status is stored
 PULSECOLS=~/.config/wmrc/colors ## colors to pulse
+EXPANDDIR=/tmp/expand           ## expanded windows
 
 # groups
 
