@@ -18,9 +18,9 @@ super + alt + {Left,Down,Up,Right}
 super + Tab
         focuswrap next
 
-# kill sxhkd (for config changes, must be manually reopened)
-super + Escape
-        killall sxhkd
+# reload sxhkd configuration file
+super + r
+        killall -s SIGUSR1 sxhkd
 
 # toggle groups
 super + {1,2,3,4,5}
