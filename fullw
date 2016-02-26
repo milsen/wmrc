@@ -16,7 +16,7 @@ usage() {
 }
 
 full() {
-  local MONITOR=${1:-$(pfd)}
+  local MONITOR=${1:-$CURDISP}
   local WINDOW=${2:-$CUR}
   wattr xywhi $WINDOW > $FSFILE
   wtp $(dattr $MONITOR) $WINDOW

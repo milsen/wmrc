@@ -14,10 +14,11 @@ XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
 . $XDG_CONFIG_HOME/wmrc/config
 . $XDG_CONFIG_HOME/wmrc/globals
 
-SW=$(dattr -w $(pfd) &)
-BSH=$(dattr -h $(pfd) &)
-SX=$(dattr -x $(pfd) &)
-SY=$(dattr -y $(pfd) &)
+CURDISP=$(pfd)
+SW=$(dattr -w $CURDISP &)
+BSH=$(dattr -h $CURDISP &)
+SX=$(dattr -x $CURDISP &)
+SY=$(dattr -y $CURDISP &)
 SH=$((BSH - PANEL))
 HSW=$((SW/2 - 2*BWIDTH - GAP - GAP/2))
 HSH=$((SH/2 - 2*BWIDTH - GAP - GAP/2))
