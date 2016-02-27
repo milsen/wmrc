@@ -53,10 +53,16 @@ Throw all the scripts somewhere in your PATH. Enjoy.
 
 * User guide, good documentation
 
-# Known issues
+## Known issues
 
 * Please report them!
 
-# Pull requests
+## Pull requests
 
 If you want to help, please do!
+
+## Credits
+
+[kori](https://github.com/kori) for groupmgr
+z3bra and dcat for work on wmutils
+wildefyr for a few scripts otherwise noted
