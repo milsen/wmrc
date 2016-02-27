@@ -68,3 +68,5 @@ If you want to help, please do!
 z3bra and dcat for work on wmutils
 
 wildefyr for a few scripts otherwise noted
+
+milsen for quite a few pull requests
