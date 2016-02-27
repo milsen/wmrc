@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # closest - focus the closest window
-# (c) ix 2016
+# (c) ix & milsen 2016
 #
 
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
@@ -13,26 +13,14 @@ usage() {
   exit 1
 }
 
-next_east() {
-  lsw | xargs wattr xi | sort -nr | sed "0,/$CUR/d" | sed "1s/^[0-9]* //p;d"
-}
-
-next_west() {
-  lsw | xargs wattr xi | sort -n | sed "0,/$CUR/d" | sed "1s/^[0-9]* //p;d"
-}
-
-next_north() {
-  lsw | xargs wattr yi | sort -nr | sed "0,/$CUR/d" | sed "1s/^[0-9]* //p;d"
-}
-
-next_south() {
-  lsw | xargs wattr yi | sort -n | sed "0,/$CUR/d" | sed "1s/^[0-9]* //p;d"
+next() {
+  lsw | xargs wattr "$1"i | sort -n"$2" | sed "0,/$CUR/d" | sed "1s/^[0-9]* //p;d"
 }
 
 case $1 in
-  h|a|east|left)  focuswrap $(next_east)  2>/dev/null ;;
-  j|s|south|down) focuswrap $(next_south) 2>/dev/null ;;
-  k|w|north|up)   focuswrap $(next_north) 2>/dev/null ;;
-  l|d|west|right) focuswrap $(next_west)  2>/dev/null ;;
+  h|a|east|left)  focuswrap $(next x r)  2>/dev/null ;;
+  j|s|south|down) focuswrap $(next y "") 2>/dev/null ;;
+  k|w|north|up)   focuswrap $(next y r)  2>/dev/null ;;
+  l|d|west|right) focuswrap $(next x "") 2>/dev/null ;;
   *) usage ;;
 esac
