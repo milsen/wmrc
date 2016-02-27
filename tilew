@@ -1,0 +1,76 @@
+#!/bin/sh
+#
+# tilew - arrange windows in a tiled pattern
+# (c) milsen 2016, based on z3bra's tile.sh
+#
+
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
+
+. $XDG_CONFIG_HOME/wmrc/config
+. $XDG_CONFIG_HOME/wmrc/globals
+. $XDG_CONFIG_HOME/wmrc/disp
+
+usage() {
+  # master-width is the width of the window on the left, including borders
+  echo "usage: $(basename $0) [-w master-width] [wid]"
+}
+
+# calculate usable screen size without outer gaps
+# (panel is already substracted in disp)
+SW=$((SW - 2*GAP))
+SH=$((SH - 2*GAP))
+
+# get master-area width, use half the screen as default
+while getopts ":w:" opt; do
+  case $opt in
+    w) MASTER=$OPTARG ;;
+    *) usage && exit 1 ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+HALF=$(((SW - GAP)/2))
+MASTER=${MASTER:-$HALF}
+
+# if no wid given, use wid of current window
+CUR=${1:-$CUR}
+
+# put current window in master area
+Y=$((GAP + PANEL))
+wtp $GAP $Y $((MASTER - 2*BWIDTH)) $((SH - 2*BWIDTH)) $CUR
+
+# get the number of windows to put in the stacking area
+STWINNR=$(lsw | grep -v $CUR | wc -l)
+
+# stack up all remaining windows on the right if there are any
+if [ ! $STWINNR -eq 0 ]; then
+
+  # calculate x-position and width of stacked windows
+  X=$((MASTER + 2*GAP))
+  W=$((SW - MASTER - GAP - 2*BWIDTH))
+
+  # substract gaps between stacked windows from usable height SH
+  # as well as borders for each window
+  SH=$((SH - (STWINNR - 1)*GAP - STWINNR*2*BWIDTH))
+
+  # calculate height of each stacked window and rest pixels
+  BASEH=$((SH/STWINNR))
+  RESTPXS=$((SH%STWINNR))
+
+  # stack all non-current windows on the right
+  for wid in $(lsw | grep -v $CUR); do
+    # if the height of the stacking area cannot be cleanly divided by the number
+    # of windows, add one pixel to each of the first SH%STWINNR windows in the
+    # stacking area
+    if [ $RESTPXS -gt 0 ]; then
+      H=$((BASEH + 1))
+      RESTPXS=$((RESTPXS - 1))
+    else
+      H=$BASEH
+    fi
+
+    wtp $X $Y $W $H $wid
+    Y=$((Y + H + GAP + 2*BWIDTH))
+  done
+
+fi
