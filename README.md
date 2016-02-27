@@ -64,5 +64,7 @@ If you want to help, please do!
 ## Credits
 
 [kori](https://github.com/kori) for groupmgr
+
 z3bra and dcat for work on wmutils
+
 wildefyr for a few scripts otherwise noted
