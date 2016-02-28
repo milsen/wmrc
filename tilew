@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # tilew - arrange windows in a tiled pattern
-# (c) milsen 2016, based on z3bra's tile.sh
+# (c) milsen 2016
 #
 
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
@@ -11,61 +11,126 @@ XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
 . $XDG_CONFIG_HOME/wmrc/disp
 
 usage() {
-  # master-width is the width of the window on the left, including borders
-  echo "usage: $(basename $0) [-w master-width] [wid]"
+  echo "usage: $(basename $0) [-o <up|down|left|right>] " \
+    "[-s master-size] [-n master-window-nr] [wid]"
 }
 
-# get master-area width, use half the screen as default
-while getopts ":w:" opt; do
+# $1 = axis (x=0, y=1)
+# $2 = starting point (in x-direction for axis=0, in y-direction for axis=1)
+# $3 = size of windows ot be stacked (width for axis=0, height for axis=1)
+# $4 = windows to be stacked
+stack_windows() {
+  # get number of windows to be stacked
+  STWINNR=$(echo "$4" | wc -l)
+
+  # stack them if there are any
+  if [ ! $STWINNR -eq 0 ]; then
+
+    # get x/y-position and overall size of stacking area
+    if [ $1 -eq 0 ]; then
+      X=$2
+      Y=$TOP
+      WHOLE=$WHOLEH
+    else
+      X=$LEFT
+      Y=$2
+      WHOLE=$WHOLEW
+    fi
+
+    # substract gaps between stacked windows from usable size WHOLE
+    # as well as borders for each window
+    WHOLE=$((WHOLE - (STWINNR - 1)*GAP - STWINNR*2*BWIDTH))
+
+    # calculate size of each stacked window and rest pixels
+    BASE=$((WHOLE/STWINNR))
+    RESTPXS=$((WHOLE%STWINNR))
+
+    # stack all non-current windows
+    for wid in $4; do
+      # if the size of the stacking area cannot be cleanly divided by the number
+      # of windows, add one pixel to each of the first WHOLE%STWINNR windows in the
+      # stacking area
+      if [ $RESTPXS -gt 0 ]; then
+        WINSIZE=$((BASE + 1))
+        RESTPXS=$((RESTPXS - 1))
+      else
+        WINSIZE=$BASE
+      fi
+
+      if [ $1 -eq 0 ]; then
+        wtp $X $Y $3 $WINSIZE $wid
+        Y=$((Y + WINSIZE + GAP + 2*BWIDTH))
+      else
+        wtp $X $Y $WINSIZE $3 $wid
+        X=$((X + WINSIZE + GAP + 2*BWIDTH))
+      fi
+    done
+
+  fi
+}
+
+# get options
+while getopts ":s:n:o:" opt; do
   case $opt in
-    w) MASTER=$OPTARG ;;
+    s) MASTER=$OPTARG ;;
+    n) MWINNR=$OPTARG ;;
+    o) ORIENTATION=$OPTARG ;;
     *) usage && exit 1 ;;
   esac
 done
 shift $((OPTIND - 1))
 
-HALF=$(((WHOLEW - GAP)/2))
-MASTER=${MASTER:-$HALF}
-
-# if no wid given, use wid of current window
+# default wid: $(pfw)
+# default orientation: left
+# default master-win-nr: 1
+# default master-size: half of screen without panels and gaps
 CUR=${1:-$CUR}
+ORIENTATION=${ORIENTATION:-left}
+MWINNR=${MWINNR:-1}
 
-# put current window in master area
-wtp $LEFT $TOP $((MASTER - 2*BWIDTH)) $((WHOLEH - 2*BWIDTH)) $CUR
-
-# get the number of windows to put in the stacking area
-STWINNR=$(lsw | grep -v $CUR | wc -l)
-
-# stack up all remaining windows on the right if there are any
-if [ ! $STWINNR -eq 0 ]; then
-
-  # calculate x/y-position and width of stacked windows
-  X=$((MASTER + 2*GAP))
-  Y=$TOP
-  W=$((WHOLEW - MASTER - GAP - 2*BWIDTH))
-
-  # substract gaps between stacked windows from usable height WHOLEH
-  # as well as borders for each window
-  WHOLEH=$((WHOLEH - (STWINNR - 1)*GAP - STWINNR*2*BWIDTH))
-
-  # calculate height of each stacked window and rest pixels
-  BASEH=$((WHOLEH/STWINNR))
-  RESTPXS=$((WHOLEH%STWINNR))
-
-  # stack all non-current windows on the right
-  for wid in $(lsw | grep -v $CUR); do
-    # if the height of the stacking area cannot be cleanly divided by the number
-    # of windows, add one pixel to each of the first WHOLEH%STWINNR windows in the
-    # stacking area
-    if [ $RESTPXS -gt 0 ]; then
-      H=$((BASEH + 1))
-      RESTPXS=$((RESTPXS - 1))
-    else
-      H=$BASEH
-    fi
-
-    wtp $X $Y $W $H $wid
-    Y=$((Y + H + GAP + 2*BWIDTH))
-  done
-
+# negative master-window-nr or one that is higher than the actual window-nr
+# cannot be used
+if [ $MWINNR -lt 1 ] || [ $MWINNR -gt $(lsw | wc -l) ]; then
+  usage && exit 1
 fi
+
+# determine orientation (x=0, y=1) and starting point depending on orientation
+case $ORIENTATION in
+  left)
+    ORIENTATION=0
+    MASTER=${MASTER:-$(((WHOLEW - GAP - 4*BWIDTH)/2))}
+    START=$LEFT
+    SIZE=$((WHOLEW - MASTER - GAP - 4*BWIDTH))
+    END=$((LEFT + MASTER + GAP + 2*BWIDTH)) ;;
+
+  right)
+    ORIENTATION=0
+    MASTER=${MASTER:-$(((WHOLEW - GAP - 4*BWIDTH)/2))}
+    START=$((LEFT + WHOLEW - MASTER - 2*BWIDTH))
+    SIZE=$((WHOLEW - MASTER - GAP - 4*BWIDTH))
+    END=$LEFT ;;
+
+  up)
+    ORIENTATION=1
+    MASTER=${MASTER:-$(((WHOLEH - GAP - 4*BWIDTH)/2))}
+    START=$TOP
+    SIZE=$((WHOLEH - MASTER - GAP - 4*BWIDTH))
+    END=$((TOP + MASTER + GAP + 2*BWIDTH)) ;;
+
+  down)
+    ORIENTATION=1
+    MASTER=${MASTER:-$(((WHOLEH - GAP - 4*BWIDTH)/2))}
+    START=$((TOP + WHOLEH - MASTER - 2*BWIDTH))
+    SIZE=$((WHOLEH - MASTER - GAP - 4*BWIDTH))
+    END=$TOP ;;
+
+  *) usage && exit 1 ;;
+esac
+
+# put current window as well as next MWINNR - 1 windows in master area
+WINS=$(echo -e "$CUR\n$(lsw | grep -v $CUR | head -n $((MWINNR - 1)))")
+stack_windows $ORIENTATION $START $MASTER "$WINS"
+
+# stack up all remaining windows on the other side
+WINS=$(lsw | grep -v "$WINS")
+stack_windows $ORIENTATION $END $SIZE "$WINS"
