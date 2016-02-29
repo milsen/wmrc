@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # snapw - snap a window left, right, up, down
-# (c) ix 2016
+# (c) ix & milsen 2016
 #
 
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
@@ -18,49 +18,26 @@ case $2 in
   0x*) CUR=$2 ;;
 esac
 
-right() {
-  wtp $((SX + SW - SW/2 + GAP/2)) $((SY + GAP + PANEL)) $((SW/2 - 2*BWIDTH - GAP - GAP/2)) $((SH - 2*BWIDTH - 2*GAP)) $CUR
-}
+# define variables for screen positioning
+LEFT=$((SX + GAP))
+RIGHT=$((SX + SW - SW/2 + GAP/2))
+TOP=$((SY + GAP + PANEL))
+BOTTOM=$((SY + SH - SH/2))
 
-left() {
-  wtp $((SX + GAP)) $((SY + GAP + PANEL)) $((SW/2 - 2*BWIDTH - GAP - GAP/2)) $((SH - 2*BWIDTH - 2*GAP)) $CUR
-}
-
-down() {
-  up
-  #wtp $((SX + GAP)) $((SY + SH - SH/2)) $((SW - 2*GAP - 2*BWIDTH)) $((SH/2 - 2*BWIDTH - GAP - GAP/2)) $CUR
-  wmv 0 $((SH/2 - BWIDTH - GAP/2)) $CUR
-}
-
-up() {
-  wtp $((SX + GAP)) $((SY + GAP + PANEL)) $((SW - 2*GAP - 2*BWIDTH)) $((SH/2 - 2*BWIDTH - GAP - GAP/2)) $CUR
-}
-
-topright() {
-  wtp $((SX + SW - SW/2 + GAP/2)) $((SY + GAP + PANEL)) $HSW $HSH $CUR
-}
-
-topleft() {
-  wtp $((SX + GAP)) $((SY + GAP + PANEL)) $HSW $HSH $CUR
-}
-
-bottomright() {
-  wtp $((SX + SW - SW/2 + GAP/2)) $((SY + SH - SH/2 + GAP/2 + PANEL)) $HSW $HSH $CUR
-}
-
-
-bottomleft() {
-  wtp $((SX + GAP)) $((SY + SH - SH/2 + GAP/2 + PANEL)) $HSW $HSH $CUR
-}
+HALFW=$((SW/2 - 2*BWIDTH - GAP - GAP/2))
+WHOLEW=$((SW - 2*GAP - 2*BWIDTH))
+HALFH=$((PANEL + SH/2 - 2*BWIDTH - GAP - GAP/2))
+WHOLEH=$((SH - 2*GAP - 2*BWIDTH))
 
 case $1 in
-  left) left ;;
-  right) right ;;
-  down) down ;;
-  up) up ;;
-  tr) topright ;;
-  tl) topleft ;;
-  br) bottomright ;;
-  bl) bottomleft ;;
+  left|l)          wtp $LEFT  $TOP    $HALFW  $WHOLEH $CUR ;;
+  right|r)         wtp $RIGHT $TOP    $HALFW  $WHOLEH $CUR ;;
+  bottom|down|d|b) wtp $LEFT  $BOTTOM $WHOLEW $HALFH  $CUR ;;
+  top|up|u|t)      wtp $LEFT  $TOP    $WHOLEW $HALFH  $CUR ;;
+  topright|tr)     wtp $RIGHT $TOP    $HALFW  $HALFH  $CUR ;;
+  topleft|tl)      wtp $LEFT  $TOP    $HALFW  $HALFH  $CUR ;;
+  bottomright|br)  wtp $RIGHT $BOTTOM $HALFW  $HALFH  $CUR ;;
+  bottomleft|bl)   wtp $LEFT  $BOTTOM $HALFW  $HALFH  $CUR ;;
+  middle|md|m)     wtp $LEFT  $TOP    $WHOLEW $WHOLEH $CUR ;;
   *) usage ;;
 esac
