@@ -12,11 +12,18 @@
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
 
 . $XDG_CONFIG_HOME/wmrc/config
-. $XDG_CONFIG_HOME/wmrc/globals
 
+# variables for window positioning with panels but ignoring gaps
 CURDISP=$(pfd)
 SW=$(dattr -w $CURDISP &)
 BSH=$(dattr -h $CURDISP &)
 SX=$(dattr -x $CURDISP &)
 SY=$(dattr -y $CURDISP &)
 SH=$((BSH - PANEL))
+
+# variables for window positioning with outer gaps and panels
+# (borders are not substracted here!)
+LEFT=$((SX + GAP))
+TOP=$((SY + GAP + PANEL))
+WHOLEW=$((SW - 2*GAP))
+WHOLEH=$((SH - 2*GAP))
