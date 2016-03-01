@@ -15,11 +15,6 @@ usage() {
   echo "usage: $(basename $0) [-w master-width] [wid]"
 }
 
-# calculate usable screen size without outer gaps
-# (panel is already substracted in disp)
-SW=$((SW - 2*GAP))
-SH=$((SH - 2*GAP))
-
 # get master-area width, use half the screen as default
 while getopts ":w:" opt; do
   case $opt in
@@ -29,15 +24,14 @@ while getopts ":w:" opt; do
 done
 shift $((OPTIND - 1))
 
-HALF=$(((SW - GAP)/2))
+HALF=$(((WHOLEW - GAP)/2))
 MASTER=${MASTER:-$HALF}
 
 # if no wid given, use wid of current window
 CUR=${1:-$CUR}
 
 # put current window in master area
-Y=$((GAP + PANEL))
-wtp $GAP $Y $((MASTER - 2*BWIDTH)) $((SH - 2*BWIDTH)) $CUR
+wtp $LEFT $TOP $((MASTER - 2*BWIDTH)) $((WHOLEH - 2*BWIDTH)) $CUR
 
 # get the number of windows to put in the stacking area
 STWINNR=$(lsw | grep -v $CUR | wc -l)
@@ -45,22 +39,23 @@ STWINNR=$(lsw | grep -v $CUR | wc -l)
 # stack up all remaining windows on the right if there are any
 if [ ! $STWINNR -eq 0 ]; then
 
-  # calculate x-position and width of stacked windows
+  # calculate x/y-position and width of stacked windows
   X=$((MASTER + 2*GAP))
-  W=$((SW - MASTER - GAP - 2*BWIDTH))
+  Y=$TOP
+  W=$((WHOLEW - MASTER - GAP - 2*BWIDTH))
 
-  # substract gaps between stacked windows from usable height SH
+  # substract gaps between stacked windows from usable height WHOLEH
   # as well as borders for each window
-  SH=$((SH - (STWINNR - 1)*GAP - STWINNR*2*BWIDTH))
+  WHOLEH=$((WHOLEH - (STWINNR - 1)*GAP - STWINNR*2*BWIDTH))
 
   # calculate height of each stacked window and rest pixels
-  BASEH=$((SH/STWINNR))
-  RESTPXS=$((SH%STWINNR))
+  BASEH=$((WHOLEH/STWINNR))
+  RESTPXS=$((WHOLEH%STWINNR))
 
   # stack all non-current windows on the right
   for wid in $(lsw | grep -v $CUR); do
     # if the height of the stacking area cannot be cleanly divided by the number
-    # of windows, add one pixel to each of the first SH%STWINNR windows in the
+    # of windows, add one pixel to each of the first WHOLEH%STWINNR windows in the
     # stacking area
     if [ $RESTPXS -gt 0 ]; then
       H=$((BASEH + 1))
