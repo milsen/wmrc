@@ -1,20 +1,25 @@
 #!/bin/sh
 #
 # killx - kills the X server, cleaning temp files and such
-# (c) ix 2016
+# (c) ix & milsen 2016
 #
 
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
 
 . $XDG_CONFIG_HOME/wmrc/config
 
-rm /tmp/groups/*/*
-rm /tmp/grpstat/*
-echo 0 > /tmp/grpstat/1
-echo 0 > /tmp/grpstat/2
-echo 0 > /tmp/grpstat/3
-echo 0 > /tmp/grpstat/4
-echo 0 > /tmp/grpstat/5
+# remove temporary files
+rm -f "$WMRC_TEMPDIR"/groups/*/*
+rm -f "$WMRC_TEMPDIR"/grpstat/*
+rm -f "$WMRC_TEMPDIR"/expand/*
+rm -f "$WMRC_TEMPDIR"/fullscreened
+
+# initialize groups as inactive
+for i in $(seq $GRPNUM); do
+  echo 0 > "$WMRC_TEMPDIR"/grpstat/"$i"
+done
+
+# kill daemons
 killall sxhkd
 killall wew
 killall xwait
