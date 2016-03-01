@@ -21,8 +21,6 @@ done
 
 shift $((OPTIND - 1))
 
-MONITOR=$(pfd)
-
 usage() {
   echo "usage: $(basename $0) [-hv] <wid>" >&2
   exit ${1:-0}
@@ -33,7 +31,7 @@ usage() {
 expand() {
   wattr xywhi $CUR > $EXPANDDIR/$CUR
   case $DIRECTION in
-    vert) GEO=$(printf '%d 0 %d %d' $(wattr xw $CUR) $((BSH - 2*BWIDTH))) ;;
+    vert) GEO=$(printf "%d $SY %d %d" $(wattr xw $CUR) $((SH - 2*BWIDTH))) ;;
     horiz) GEO=$(printf "$SX %d %d %d" $(wattr y $CUR) $((SW - 2*BWIDTH)) $(wattr h $CUR)) ;;
   esac
   wtp $GEO $CUR
@@ -47,7 +45,7 @@ collapse() {
 
 checkmax() {
   case $DIRECTION in
-    vert) [ $(wattr h $CUR) -eq $((BSH - 2*BWIDTH)) ] && return 0 ;;
+    vert) [ $(wattr h $CUR) -eq $((SH - 2*BWIDTH)) ] && return 0 ;;
     horiz) [ $(wattr w $CUR) -eq $((SW - 2*BWIDTH)) ] && return 0 ;;
   esac
 }

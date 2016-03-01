@@ -6,7 +6,6 @@
 
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
 
-. $XDG_CONFIG_HOME/wmrc/config
 . $XDG_CONFIG_HOME/wmrc/globals
 . $XDG_CONFIG_HOME/wmrc/disp
 
@@ -18,16 +17,15 @@ case $2 in
   0x*) CUR=$2 ;;
 esac
 
-# define variables for screen positioning
-LEFT=$((SX + GAP))
-RIGHT=$((SX + SW - SW/2 + GAP/2))
-TOP=$((SY + GAP + PANEL))
-BOTTOM=$((SY + SH - SH/2))
+# define variables for window positioning
+HALFW=$(((WHOLEW - GAP - 4*BWIDTH) / 2))
+HALFH=$(((WHOLEH - GAP - 4*BWIDTH) / 2))
 
-HALFW=$((SW/2 - 2*BWIDTH - GAP - GAP/2))
-WHOLEW=$((SW - 2*GAP - 2*BWIDTH))
-HALFH=$((PANEL + SH/2 - 2*BWIDTH - GAP - GAP/2))
-WHOLEH=$((SH - 2*GAP - 2*BWIDTH))
+RIGHT=$((LEFT + HALFW + 2*BWIDTH + GAP))
+BOTTOM=$((TOP + HALFH + 2*BWIDTH + GAP))
+
+WHOLEW=$((WHOLEW - 2*BWIDTH))
+WHOLEH=$((WHOLEH - 2*BWIDTH))
 
 case $1 in
   left|l)          wtp $LEFT  $TOP    $HALFW  $WHOLEH $CUR ;;
