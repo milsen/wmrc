@@ -24,6 +24,8 @@ INACTIVE=${INACTIVE:-0x3c3732} ## border color of inactive window
 FREQ=0.08                      ## frequency to pulse borders
 
 # snapping
-
-PANEL=50 ## height of the top panel
-GAP=20   ## gaps between windows
+TPANEL=50 ## height of the top panel
+BPANEL=0  ## height of the bottom panel
+LPANEL=0  ## width of the left panel
+RPANEL=0  ## width of the right panel
+GAP=20    ## gaps between windows

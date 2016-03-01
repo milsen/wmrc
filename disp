@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # wmrc display variables
-# (c) ix 2016
+# (c) ix & milsen 2016
 #
 
 # these are seperate from the rest of the
@@ -13,17 +13,22 @@ XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
 
 . $XDG_CONFIG_HOME/wmrc/config
 
-# variables for window positioning with panels but ignoring gaps
+# total screen dimensions
 CURDISP=$(pfd)
-SW=$(dattr -w $CURDISP &)
-BSH=$(dattr -h $CURDISP &)
-SX=$(dattr -x $CURDISP &)
-SY=$(dattr -y $CURDISP &)
-SH=$((BSH - PANEL))
+TOTALSW=$(dattr -w $CURDISP &)
+TOTALSH=$(dattr -h $CURDISP &)
+TOTALSX=$(dattr -x $CURDISP &)
+TOTALSY=$(dattr -y $CURDISP &)
 
-# variables for window positioning with outer gaps and panels
+# variables for window positioning with panels but ignoring outer gaps
+SW=$((TOTALSW - LPANEL - RPANEL))
+SH=$((TOTALSH - TPANEL - BPANEL))
+SX=$((TOTALSX + LPANEL))
+SY=$((TOTALSY + TPANEL))
+
+# variables for window positioning with panels and outer gaps
 # (borders are not substracted here!)
 LEFT=$((SX + GAP))
-TOP=$((SY + GAP + PANEL))
+TOP=$((SY + GAP))
 WHOLEW=$((SW - 2*GAP))
 WHOLEH=$((SH - 2*GAP))
