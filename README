@@ -1,0 +1,73 @@
+@eris aka "i'm too hipster for a real window manager did i mention i hate
+myself" - me
+
+wmrc
+====
+
+A simple WM powered by wmutils, comprised of pure POSIX-compliant shell scripts.
+
+Installation
+------------
+
+Note that this expects that you run startx/xinit from a tty, not use a login manager (e.g. gdm, sddm, etc).
+
+First off,  you need to compile/install the following:
+
+* wmutils/libwm
+* wmutils/core
+* My fork of wmutils/opt
+* https://github.com/ix/disputils
+* killwa
+* sxhkd
+* dmenu
+* Any virtual terminal
+
+Highly recommended:
+
+* lemonbar
+* dash - insanely fast posix-compliant shell. symlink to /bin/sh for best performance in most scripts
+* hsetroot - wallpaper
+* compton - tearing protection and shadows and such
+
+If you don't already have them, copy sxhkdrc.default to ~/.config/sxhkd/sxhkdrc, and copy xinitrc.default to ~/.xinitrc.
+
+Uncomment the features you would like in .xinitrc.
+
+Copy config.default to ~/.config/wmrc/config.
+
+globals and disp go in ~/.config/wmrc/. These are global variables which
+you absolutely need, or there will be quite bad damage to ~.
+
+If you wish to use pulsew, then copy colors.default to
+~/.config/wmrc/colors.
+
+Navigate to opt/ and run make. This is required for use of the mouse when focusing windows. If you do not want this, change 4 to 7 in evhandle.
+
+Throw all the scripts somewhere in your PATH. Enjoy.
+
+TODO
+----
+
+* User guide, good documentation
+
+Known issues
+------------
+
+* Some have had issues with $HOME destruction; I need to look into this further
+* Please report them!
+
+Contributing
+------------
+
+If you want to help, please do! Drop me an email with a diff over master.
+
+Credits
+-------
+
+kori for groupmgr
+
+z3bra and dcat for work on wmutils
+
+wildefyr for a few scripts otherwise noted
+
+milsen for quite a few pull requests
