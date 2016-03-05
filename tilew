@@ -11,8 +11,14 @@ XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
 . $XDG_CONFIG_HOME/wmrc/disp
 
 usage() {
-  echo "usage: $(basename $0) [-o <up|down|left|right>] " \
-    "[-s master-size] [-n master-window-nr] [wid]"
+  echo <<EOF
+  usage: $(basename $0) [OPTIONS] [wid]
+    -n  number of windows in first row/column
+    -o  <up|down|left|right>,
+        determines whether the other options apply to rows or columns
+    -r  rows/columns of windows
+    -s  size of first row/column
+EOF
 }
 
 # $1 = axis (x=0, y=1)
@@ -70,58 +76,70 @@ stack_windows() {
 }
 
 # get options
-while getopts ":s:n:o:" opt; do
+while getopts ":n:o:r:s:" opt; do
   case $opt in
-    s) MASTER=$OPTARG ;;
     n) MWINNR=$OPTARG ;;
     o) ORIENTATION=$OPTARG ;;
+    r) ROWS=$OPTARG ;;
+    s) MASTER=$OPTARG ;;
     *) usage && exit 1 ;;
   esac
 done
 shift $((OPTIND - 1))
 
-# default wid: $(pfw)
-# default orientation: left
-# default master-win-nr: 1
-# default master-size: half of screen without panels and gaps
-CUR=${1:-$CUR}
-ORIENTATION=${ORIENTATION:-left}
-MWINNR=${MWINNR:-1}
+WINNR=$(lsw | wc -l)                          # number of windows n
+CUR=${1:-$CUR}                                # default wid: $(pfw)
+MWINNR=${MWINNR:-1}                           # default master-win-nr: 1
+ORIENTATION=${ORIENTATION:-left}              # default orientation: left
+ROWS=${ROWS:-2}                               # default rows: 2
+REST_ROWS=$((ROWS - 1))                       # rows other than master-area: 1
 
-# negative master-window-nr or one that is higher than the actual window-nr
+# non-positive master-window-nr or one that is higher than the actual window-nr
 # cannot be used
-if [ $MWINNR -lt 1 ] || [ $MWINNR -gt $(lsw | wc -l) ]; then
+if [ $MWINNR -lt 1 ] || [ $MWINNR -gt $WINNR ]; then
+  usage && exit 1
+fi
+
+# negative rest-row-number or one that is higher than the number of non-master
+# windows + 1 (master-area) cannot be used
+if [ $REST_ROWS -lt 0 ] || [ $REST_ROWS -gt $((WINNR - MWINNR)) ]; then
+  usage && exit 1
+fi
+
+# if there is only one master-row but not enough windows are supposed to be in it, exit
+if [ $REST_ROWS -eq 0 ] && [ $MWINNR -lt $WINNR ]; then
   usage && exit 1
 fi
 
 # determine orientation (x=0, y=1) and starting point depending on orientation
+# default master-size: half of screen without panels and gaps
 case $ORIENTATION in
   left)
     ORIENTATION=0
     MASTER=${MASTER:-$(((WHOLEW - GAP - 4*BWIDTH)/2))}
     START=$LEFT
-    SIZE=$((WHOLEW - MASTER - GAP - 4*BWIDTH))
+    SIZE=$((WHOLEW - MASTER - GAP - 2*BWIDTH))
     END=$((LEFT + MASTER + GAP + 2*BWIDTH)) ;;
 
   right)
     ORIENTATION=0
     MASTER=${MASTER:-$(((WHOLEW - GAP - 4*BWIDTH)/2))}
     START=$((LEFT + WHOLEW - MASTER - 2*BWIDTH))
-    SIZE=$((WHOLEW - MASTER - GAP - 4*BWIDTH))
+    SIZE=$((WHOLEW - MASTER - GAP - 2*BWIDTH))
     END=$LEFT ;;
 
   up)
     ORIENTATION=1
     MASTER=${MASTER:-$(((WHOLEH - GAP - 4*BWIDTH)/2))}
     START=$TOP
-    SIZE=$((WHOLEH - MASTER - GAP - 4*BWIDTH))
+    SIZE=$((WHOLEH - MASTER - GAP - 2*BWIDTH))
     END=$((TOP + MASTER + GAP + 2*BWIDTH)) ;;
 
   down)
     ORIENTATION=1
     MASTER=${MASTER:-$(((WHOLEH - GAP - 4*BWIDTH)/2))}
     START=$((TOP + WHOLEH - MASTER - 2*BWIDTH))
-    SIZE=$((WHOLEH - MASTER - GAP - 4*BWIDTH))
+    SIZE=$((WHOLEH - MASTER - GAP - 2*BWIDTH))
     END=$TOP ;;
 
   *) usage && exit 1 ;;
@@ -131,6 +149,38 @@ esac
 WINS=$(echo -e "$CUR\n$(lsw | grep -v $CUR | head -n $((MWINNR - 1)))")
 stack_windows $ORIENTATION $START $MASTER "$WINS"
 
-# stack up all remaining windows on the other side
+# get remaining windows and number of rest pixels after dividing remaining
+# screen size by number of rest-rows
 WINS=$(lsw | grep -v "$WINS")
-stack_windows $ORIENTATION $END $SIZE "$WINS"
+
+
+# substract gaps between stacked rows from usable size SIZE as well as borders
+# for each row
+SIZE=$((SIZE - (REST_ROWS - 1)*GAP - REST_ROWS*2*BWIDTH))
+
+# calculate size of each stacked row and rest pixels
+ROW_BASE=$((SIZE/REST_ROWS))
+ROW_RESTPXS=$((WHOLE%REST_ROWS))
+
+# stack up all rest windows in the other rows, for each non-master row:
+for i in $(seq $REST_ROWS); do
+  # get (number of) windows for this row
+  NEW_WINSNR=$(($(echo "$WINS" | wc -l) / REST_ROWS))
+  NEW_WINS=$(echo "$WINS" | head -n $NEW_WINSNR)
+
+  # add restpixel to windowsize if necessary
+  if [ $ROW_RESTPXS -gt 0 ]; then
+    WINDOWSIZE=$((ROW_BASE + 1))
+    ROW_RESTPXS=$((ROW_RESTPXS - 1))
+  else
+    WINDOWSIZE=$ROW_BASE
+  fi
+
+  # stack new windows
+  stack_windows $ORIENTATION $END $WINDOWSIZE "$NEW_WINS"
+
+  # update position, remaining windows and remaining size for next rows
+  END=$((END + WINDOWSIZE + GAP + 2*BWIDTH))
+  WINS=$(echo "$WINS" | tail -n+$((NEW_WINSNR + 1)))
+  REST_ROWS=$((REST_ROWS - 1))
+done
