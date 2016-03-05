@@ -23,43 +23,43 @@ usage() {
 }
 
 addtgrp() {
-  :> $GRPROOT/$2/$1
+  :> "$GRPROOT"/$2/$1
   showgrp $2
 }
 
 removefgrp() {
   if [ "$2" = "all" ]; then
     for grp in "$(seq $GRPNUM)"; do
-      rm -f $GRPROOT/*/$1
+      rm -f "$GRPROOT"/*/$1
     done
   else
-    rm -f $GRPROOT/$2/$1
+    rm -f "$GRPROOT"/$2/$1
   fi
 }
 
 findgrp() {
-  file=$(find $GRPROOT -name "$1")
+  file=$(find "$GRPROOT" -name "$1")
   [ -n "$file" ] && basename $(dirname $file)
 }
 
 showgrp() {
-  for file in $GRPROOT/$1/*; do
+  for file in "$GRPROOT"/$1/*; do
     wid=$(basename $file)
     mapw -m $wid
   done
-  echo 1 > $GRPSTATROOT/$1
+  echo 1 > "$GRPSTATROOT"/$1
 }
 
 hidegrp() {
-  for file in $GRPROOT/$1/*; do
+  for file in "$GRPROOT"/$1/*; do
     wid=$(basename $file)
     mapw -u $wid
   done
-  echo 0 > $GRPSTATROOT/$1
+  echo 0 > "$GRPSTATROOT"/$1
 }
 
 togggrp() {
-  wid=$(ls -1 $GRPROOT/$1 | sed 1q)
+  wid=$(ls -1 "$GRPROOT"/$1 | sed 1q)
 
   [ -z "$wid" ] && return
   wattr m $wid
@@ -71,21 +71,21 @@ togggrp() {
 }
 
 cgrps() {
-  if [ ! -d $GRPSTATROOT ]; then
-    mkdir $GRPSTATROOT
+  if [ ! -d "$GRPSTATROOT" ]; then
+    mkdir "$GRPSTATROOT"
   fi
   for gid in $(seq 1 $GRPNUM ); do
-    [ -d $GRPROOT/$gid ] || mkdir -p $GRPROOT/$gid
+    [ -d "$GRPROOT"/$gid ] || mkdir -p "$GRPROOT"/$gid
   done
 
-  for file in $(find $GRPROOT -type f); do
+  for file in $(find "$GRPROOT" -type f); do
     wid=$(basename $file)
     wattr $wid || rm -f $file
   done
 
   for gstat in $(seq 1 $GRPNUM); do
-    if [ $(find $GRPROOT/$gstat -maxdepth 0 -type d -empty) ]; then
-      echo 0 > $GRPSTATROOT/$gstat
+    if [ $(find "$GRPROOT"/$gstat -maxdepth 0 -type d -empty) ]; then
+      echo 0 > "$GRPSTATROOT"/$gstat
     fi
   done
 }
@@ -104,4 +104,4 @@ while getopts ":a:d:gs:t:h:" opt; do
   esac
 done
 
-[ $# -eq 0 ] && tree --noreport $GRPROOT
+[ $# -eq 0 ] && tree --noreport "$GRPROOT"
