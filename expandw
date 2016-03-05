@@ -10,7 +10,7 @@ XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 . $XDG_CONFIG_HOME/wmrc/globals
 . $XDG_CONFIG_HOME/wmrc/disp
 
-[ -d $EXPANDDIR ] || mkdir -p $EXPANDDIR
+[ -d "$EXPANDDIR" ] || mkdir -p "$EXPANDDIR"
 
 while getopts hv opt; do
   case $opt in
@@ -29,7 +29,7 @@ usage() {
 [ -z $1 ] && usage
 
 expand() {
-  wattr xywhi $CUR > $EXPANDDIR/$CUR
+  wattr xywhi $CUR > "$EXPANDDIR"/$CUR
   case $DIRECTION in
     vert) GEO=$(printf "%d $SY %d %d" $(wattr xw $CUR) $((SH - 2*BWIDTH))) ;;
     horiz) GEO=$(printf "$SX %d %d %d" $(wattr y $CUR) $((SW - 2*BWIDTH)) $(wattr h $CUR)) ;;
@@ -38,9 +38,9 @@ expand() {
 }
 
 collapse() {
-  [ -f $EXPANDDIR/$CUR ] || return
-  wtp $(grep $CUR $EXPANDDIR/$CUR)
-  rm $EXPANDDIR/$CUR
+  [ -f "$EXPANDDIR"/$CUR ] || return
+  wtp $(grep $CUR "$EXPANDDIR"/$CUR)
+  rm "$EXPANDDIR"/$CUR
 }
 
 checkmax() {
