@@ -1,68 +1,50 @@
 #!/bin/sh
 #
 # winclass - checks window class
-# (c) ix && wildefyr 2016
+# (c) ix & milsen & wildefyr 2016
 #
 
 usage() {
-  echo "usage: $(basename $0) <command> <wid|unlisted>"
-  exit 1
+  echo "usage: $(basename $0) <-a [u|o|a] [c|m|p] | -<c|m|p> wid>"
 }
 
-case $2 in
-  -u) lsw_args="-u" ;;
-  -o) lsw_args="-o" ;;
-  -a) lsw_args="-a" ;;
-esac
+# if $1 is a window-id, look up its X-property $2, else display usage
+get_xattr() {
+  case $1 in
+    0x*) xprop -id $1 $2 ;;
+    *) usage && exit 1 ;;
+  esac
+}
 
-case $1 in
-  -c)
-    case $2 in
-      0x*) xprop -id $2 WM_CLASS | cut -d\" -f 2 ;;
-      *) usage ;;
-    esac
-    ;;
-  -m)
-    case $2 in
-      0x*) xprop -id $2 WM_CLASS | cut -d\" -f 4 ;;
-      *) usage ;;
-    esac
-    ;;
-  -p)
-    case $2 in
-      0x*) xprop -id $2 _NET_WM_PID | cut -d\  -f 3 ;;
-      *) usage ;;
-    esac
-    ;;
-  -ca)
-    for wid in $(lsw $lsw_args); do
-      echo "$wid $($(basename $0) -c $wid)"
-    done
-    ;;
-  -ma)
-    for wid in $(lsw $lsw_args); do
-      echo "$wid $($(basename $0) -m $wid)"
-    done
-    ;;
-  -pa)
-    for wid in $(lsw $lsw_args); do
-      printf '%s\n' "$wid $($(basename $0) -p $wid)"
-    done
-    ;;
-  --name)
-    for wid in $(lsw $lsw_args); do
-      echo "$wid $($(basename $0) -m $wid)"
-    done
-    ;;
-  --wname)
-    for wid in $(lsw $lsw_args); do
-      echo "$wid $(wname $wid)"
-    done
-    ;;
-  -a)
-    $(basename $0) -ca $lsw_args
-    $(basename $0) -ma $lsw_args
-    $(basename $0) --name $lsw_args
-    ;;
-  *) usage ;;
-esac
+while getopts ":a:c:m:p:" opt; do
+  case $opt in
+    a) [ ! -z $OPTARG ] && LSW_ARGS=$OPTARG ;;
+    c|m|p)
+      OPTIONS="$OPTIONS$opt"
+      WID=$OPTARG ;;
+    *) usage && exit 1 ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+# if -a option was taken (LSW_ARGS is not empty), call this script with the
+# given options for every wid in $(lsw -$LSW_ARGS)
+if [ ! -z $LSW_ARGS ]; then
+  # if no additional options given, use all of them
+  [ -z $OPTIONS] && OPTIONS="cmp"
+
+  for win in $(lsw -$LSW_ARGS); do
+    echo "$win $($(basename $0) -$OPTIONS $win)"
+  done
+  exit 0
+fi
+
+# if no -a option was given, get the X-attribute for the given window-id
+for option in $(echo $OPTIONS | grep -o .); do
+  case $option in
+    c) get_xattr $WID WM_CLASS | cut -d\" -f 2 ;;
+    m) get_xattr $WID WM_CLASS | cut -d\" -f 4 ;;
+    p) get_xattr $WID _NET_WM_PID | cut -d\  -f 3 ;;
+    *) usage && exit 1 ;;
+  esac
+done
