@@ -4,7 +4,7 @@ super + d
 
 # pop a term
 super + Return
-        termlaunch
+        st
 
 # move windows
 super + {Left,Down,Up,Right}
@@ -65,4 +65,4 @@ super + ctrl + {q,w,a,s}
 
 # expanding
 super + {v,b}
-		expandw -{v,h} $(pfw)
+        expandw -{v,h} $(pfw)
