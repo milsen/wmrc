@@ -10,6 +10,8 @@ XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 . $XDG_CONFIG_HOME/wmrc/globals
 . $XDG_CONFIG_HOME/wmrc/disp
 
+EXPANDDIR="$WMRC_TEMPDIR"/expand
+
 [ -d "$EXPANDDIR" ] || mkdir -p "$EXPANDDIR"
 
 while getopts hv opt; do

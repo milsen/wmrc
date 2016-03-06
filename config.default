@@ -6,11 +6,9 @@
 
 # files used for storing things like window geometry, etc (be VERY careful with these)
 
-FSFILE=${FSFILE:-/tmp/full}     ## stores window geometry for fullscreen
-GRPROOT=/tmp/groups             ## where groups are stored
-GRPSTATROOT=/tmp/grpstat        ## where group status is stored
+## where temporary files are stored
+WMRC_TEMPDIR="${XDG_CACHE_HOME:-$HOME/.cache}"/wmrc
 PULSECOLS=~/.config/wmrc/colors ## colors to pulse
-EXPANDDIR=/tmp/expand           ## expanded windows
 
 # groups
 

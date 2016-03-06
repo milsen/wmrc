@@ -8,5 +8,5 @@ XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 
 . $XDG_CONFIG_HOME/wmrc/config
 
-cat $GRPSTATROOT/* | tr '\n' ' '
+cat "$WMRC_TEMPDIR"/grpstat/* | tr '\n' ' '
 echo

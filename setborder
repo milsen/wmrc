@@ -9,6 +9,8 @@ XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 . $XDG_CONFIG_HOME/wmrc/config
 . $XDG_CONFIG_HOME/wmrc/globals
 
+FSFILE="$WMRC_TEMPDIR"/fullscreened
+
 wattr $2 || exit 1
 wattr o $2 && exit 1
 

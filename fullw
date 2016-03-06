@@ -10,6 +10,8 @@ XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 . $XDG_CONFIG_HOME/wmrc/globals
 . $XDG_CONFIG_HOME/wmrc/disp
 
+FSFILE="$WMRC_TEMPDIR"/fullscreened
+
 usage() {
   echo "usage: $(basename $0) <display> <wid>"
   exit 1
