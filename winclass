@@ -30,10 +30,10 @@ case $1 in
     ;;
   -p)
     case $2 in
-	  0x*) xprop -id $2 _NET_WM_PID | cut -d\  -f 3 ;;
-	  *) usage ;;
-	esac
-	;;
+      0x*) xprop -id $2 _NET_WM_PID | cut -d\  -f 3 ;;
+      *) usage ;;
+    esac
+    ;;
   -ca)
     for wid in $(lsw $lsw_args); do
       echo "$wid $($(basename $0) -c $wid)"
@@ -46,19 +46,19 @@ case $1 in
     ;;
   -pa)
     for wid in $(lsw $lsw_args); do
-	  printf '%s\n' "$wid $($(basename $0) -p $wid)"
-	done
+      printf '%s\n' "$wid $($(basename $0) -p $wid)"
+    done
     ;;
   --name)
     for wid in $(lsw $lsw_args); do
       echo "$wid $($(basename $0) -m $wid)"
     done
     ;;
-	--wname)
-        for wid in $(lsw $lsw_args); do
-			echo "$wid $(wname $wid)"
-		done
-		;;
+  --wname)
+    for wid in $(lsw $lsw_args); do
+      echo "$wid $(wname $wid)"
+    done
+    ;;
   -a)
     $(basename $0) -ca $lsw_args
     $(basename $0) -ma $lsw_args
