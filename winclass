@@ -35,32 +35,27 @@ case $1 in
 	esac
 	;;
   -ca)
-    for i in $(seq $(lsw $lsw_args | wc -l)); do
-      wid=$(lsw $lsw_args | sed "$i!d")
+    for wid in $(lsw $lsw_args); do
       echo "$wid $($(basename $0) -c $wid)"
     done
     ;;
   -ma)
-    for i in $(seq $(lsw $lsw_args | wc -l)); do
-      wid=$(lsw $lsw_args | sed "$i!d")
+    for wid in $(lsw $lsw_args); do
       echo "$wid $($(basename $0) -m $wid)"
     done
     ;;
   -pa)
-    for i in $(seq $(lsw $lsw_args | wc -l)); do
-	  wid=$(lsw $lsw_args | sed "$i!d")
+    for wid in $(lsw $lsw_args); do
 	  printf '%s\n' "$wid $($(basename $0) -p $wid)"
 	done
     ;;
   --name)
-    for i in $(seq $(lsw $lsw_args | wc -l)); do
-      wid=$(lsw $lsw_args | sed "$i!d")
+    for wid in $(lsw $lsw_args); do
       echo "$wid $($(basename $0) -m $wid)"
     done
     ;;
 	--wname)
-		for i in $(seq $(lsw $lsw_args | wc -l)); do
-			wid=$(lsw $lsw_args | sed "$i!d")
+        for wid in $(lsw $lsw_args); do
 			echo "$wid $(wname $wid)"
 		done
 		;;
