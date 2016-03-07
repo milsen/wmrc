@@ -20,6 +20,7 @@ for i in $(seq $GRPNUM); do
 done
 
 # kill daemons
-killall sxhkd
-killall wew
-killall xwait
+killall -q pulsew
+killall -q sxhkd
+killall -q wew
+killall -q xwait
