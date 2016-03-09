@@ -4,29 +4,20 @@
 # (c) ix 2016
 #
 
-while IFS=: read ev wid; do
+while IFS=': ' read ev wid; do
+  case $1 in
+    -d) echo "$ev" "$wid"
+  esac
   case $ev in
-    16)
-      if ! wattr o $wid; then
-        winopen $wid
-      fi
-      ;;
+    CREATE) #$(<~/var/wm/$wid/ignored) || winopen $wid ;;
+      wattr o $wid || winopen $wid ;;
 
-    19)
-      if ! wattr o $wid; then
-        focuswrap $wid
-      fi
-      ;;
+    MAP) #$(<~/var/wm/$wid/ignored) || focuswrap $wid ;;
+      wattr o $wid || focuswrap $wid ;;
 
-    18)
-      wattr $(pfw) || focuswrap prev kb 2>/dev/null
-      groupmgr > /dev/null
-      ;;
+    DESTROY) [ -e ~/var/wm/$(<~/var/wm/focused) ] || focuswrap prev 2>/dev/null ;;
 
-    7)
-      if ! wattr o $wid; then
-        focuswrap $wid
-      fi
-      ;;
+    ENTER) #$(<~/var/wm/$wid/ignored) || focuswrap $wid ;;
+      wattr o $wid || focuswrap $wid ;;
   esac
 done

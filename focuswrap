@@ -9,24 +9,24 @@ XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 . $XDG_CONFIG_HOME/wmrc/globals
 
 usage() {
-    echo "usage: $(basename $0) <next|prev|wid>" >&2
-    exit 1
+  echo "usage: $(basename $0) <next|prev|wid>" >&2
+  exit 1
 }
 
 case $1 in
-    next) wid=$(lsw|grep -v $CUR|sed '1 p;d') ;;
-    prev) wid=$(lsw|grep -v $CUR|sed '$ p;d') ;;
-    0x*) wattr $1 && wid=$1 ;;
-    *) usage ;;
+  next) wid=$(ls ~/var/wm | grep -v $CUR | grep -v root | grep -v event | grep -v focused | sed '1 p;d') ;;
+  prev) wid=$(ls ~/var/wm | grep -v $CUR | grep -v root | grep -v event | grep -v focused | sed '$ p;d') ;;
+  0x*) [ -e ~/var/wm/$1 ] && wid=$1 ;;
+  *) usage ;;
 esac
 
 [ -z "$wid" ] && { echo "$(basename $0): no window to focus" >&2; exit 1; }
 
-if [ "$wid" = $CUR ]; then
+if [ "$wid" = "$CUR" ]; then
   exit 1
 fi
 
-chwso -r $wid
-wtf $wid
 setborder inactive $CUR
 setborder active $wid
+echo raise > $HOME/var/wm/$wid/stack
+echo $wid > $HOME/var/wm/focused
