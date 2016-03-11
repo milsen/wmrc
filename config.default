@@ -16,12 +16,13 @@ GRPNUM=5 ## number of groups
 
 # borders
 
-BW=${BW:-4}                    ## border width
-ACTIVE=${ACTIVE:-0x87766a}     ## border color of active window
-INACTIVE=${INACTIVE:-0x3c3732} ## border color of inactive window
-FREQ=0.08                      ## frequency to pulse borders
+BW=${BW:-2}                    ## border width
+ACTIVE=${ACTIVE:-0x63a690}     ## border color of active window
+INACTIVE=${INACTIVE:-0x456472} ## border color of inactive window
+FREQ=0.10                      ## frequency to pulse borders
 
 # snapping
+
 TPANEL=50 ## height of the top panel
 BPANEL=0  ## height of the bottom panel
 LPANEL=0  ## width of the left panel
