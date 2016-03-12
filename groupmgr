@@ -18,8 +18,10 @@ XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 . $XDG_CONFIG_HOME/wmrc/config
 . $XDG_CONFIG_HOME/wmrc/globals
 
-GRPROOT="$WMRC_TEMPDIR"/groups
-GRPSTATROOT="$WMRC_TEMPDIR"/grpstat
+if [ "$WMRC_TEMPDIR" ]; then
+  GRPROOT="$WMRC_TEMPDIR"/groups
+  GRPSTATROOT="$WMRC_TEMPDIR"/grpstat
+fi
 
 usage() {
   echo "$(basename $0) [-adsth <gid>]"
