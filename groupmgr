@@ -28,8 +28,10 @@ usage() {
 }
 
 addtgrp() {
-  :> "$GRPROOT"/$2/$1
-  showgrp $2
+  if [ "$CUR" != "$ROOT" ]; then
+    :> "$GRPROOT"/$2/$1
+    showgrp $2
+  fi
 }
 
 removefgrp() {
