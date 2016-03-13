@@ -4,6 +4,10 @@
 # ix 2016 - public domain
 #
 
+# start important daemons
+sxhkd &
+wew | evhandle &
+
 while true; do
   sleep 1
 done
