@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# killw - kill window (changes based on what window)
+# killwin - kill window (changes based on what window)
 # (c) ix && wildefyr 2016
 #
 
@@ -8,13 +8,17 @@ XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
 
 . $XDG_CONFIG_HOME/wmrc/globals
 
-windowc=$(winclass -c $CUR)
-windowm=$(winclass -m $CUR)
+WIN=${@:-$CUR}
+
+[ "$(lsw -a | grep $WIN)" ] && echo 'window not valid'
+
+windowc=$(winclass -c $WIN)
+windowm=$(winclass -m $WIN)
 
 if [ "$windowm" = "Firefox" ]; then
-  killwa $CUR
+  killwa $WIN
 elif [ "$windowc" = "urxvt" ]; then
-  killwa $CUR
+  killwa $WIN
 else
-  killw $CUR
+  killw $WIN
 fi
