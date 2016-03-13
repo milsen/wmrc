@@ -13,25 +13,22 @@ Note that this expects that you run startx/xinit from a tty, not use a login man
 
 First off,  you need to compile/install the following:
 
-* wmutils/libwm
 * wmutils/core
-* My fork of wmutils/opt
-* https://github.com/ix/disputils
+* wmutils/opt
+* disputils
 * killwa
 * sxhkd
-* dmenu
-* Any virtual terminal
 
 Highly recommended:
 
-* lemonbar
-* dash - insanely fast posix-compliant shell. symlink to /bin/sh for best performance in most scripts
-* hsetroot - wallpaper
-* compton - tearing protection and shadows and such
+* lemonbar/dzen2 and the like
+* dash
+* hsetroot
+* compton
+* dmenu
+* a virtual terminal
 
 If you don't already have them, copy sxhkdrc.default to ~/.config/sxhkd/sxhkdrc, and copy xinitrc.default to ~/.xinitrc.
-
-Uncomment the features you would like in .xinitrc.
 
 Copy config.default to ~/.config/wmrc/config.
 
@@ -40,8 +37,6 @@ you absolutely need, or there will be quite bad damage to ~.
 
 If you wish to use pulsew, then copy colors.default to
 ~/.config/wmrc/colors.
-
-Navigate to opt/ and run make. This is required for use of the mouse when focusing windows. If you do not want this, change 4 to 7 in evhandle.
 
 Throw all the scripts somewhere in your PATH. Enjoy.
 
