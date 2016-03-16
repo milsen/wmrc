@@ -9,14 +9,11 @@ A simple WM powered by wmutils, comprised of pure POSIX-compliant shell scripts.
 Installation
 ------------
 
-Note that this expects that you run startx/xinit from a tty, not use a login manager (e.g. gdm, sddm, etc).
-
 First off,  you need to compile/install the following:
 
-* wmutils/core
+* wmutils/core - git, not release
 * wmutils/opt
 * disputils
-* killwa
 * sxhkd
 
 Highly recommended:
