@@ -1,0 +1,6 @@
+style:
+- portability (seq, etc are not posix)
+- fix some tabbing errors here and there
+
+docs:
+- actually have decent ones aside from install
