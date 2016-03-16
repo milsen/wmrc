@@ -15,10 +15,8 @@ WIN=${@:-$CUR}
 windowc=$(winclass -c $WIN)
 windowm=$(winclass -m $WIN)
 
-if [ "$windowm" = "Firefox" ]; then
-  killwa $WIN
-elif [ "$windowc" = "urxvt" ]; then
-  killwa $WIN
+if [ "$windowc" = "telegram" ]; then
+  killw -p $WIN
 else
   killw $WIN
 fi
