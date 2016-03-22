@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# gridw - arrange windows in a grid pattern
+# (c) milsen 2016
+
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+
+. $XDG_CONFIG_HOME/wmrc/disp
+
+# create a temp file with attributes of all windows in it
+WINNR=$(lsw | wc -l)
+
+# calculate the size of the grid using the square root of the number of windows
+ROWS=$(echo "sqrt($WINNR)" | bc)
+
+if [ ! $ROWS -eq 0 ]; then
+
+  # arrange all windows in a grid, for non-square numbers add 1 to the rows
+  if [ $((ROWS * ROWS)) -eq $WINNR ]; then
+    tilew -o up -s $((WHOLEH / ROWS - 2*BWIDTH)) -n $ROWS -r $ROWS
+  else
+    tilew -o up -s $((WHOLEH / (ROWS+1) - 2*BWIDTH)) -n $ROWS -r $((ROWS+1))
+  fi
+
+fi
+
