@@ -1,8 +1,18 @@
 #!/bin/sh
 #
-# wmrc globals - global variables for wmrc
+# wmrc globals - global variables/funcs for wmrc
 # (c) ix 2016
 #
+
+seq() {
+    if [ ! -z "$1" ]; then
+        actual=$(($1 - 2))
+    fi
+    i=${actual:-0}
+    while [ "$i" -lt $2 ]; do
+        i=$(($i+1))
+    done
+}
 
 CUR=$(pfw)
 WW=$(wattr w $CUR)

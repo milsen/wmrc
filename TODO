@@ -1,5 +1,4 @@
 style:
-- portability (seq, etc are not posix)
 - fix some tabbing errors here and there
 
 docs:
