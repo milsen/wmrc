@@ -5,12 +5,19 @@
 #
 
 seq() {
-    if [ ! -z "$1" ]; then
-        actual=$(($1 - 1))
+    local count end
+
+    if [ -n "$2" ]; then
+        count="$1"
+        end="$2"
+    elif [ -n "$1" ]; then
+        count=0
+        end="$1"
     fi
-    i=${actual:-0}
-    while [ "$i" -lt $2 ]; do
-        i=$(($i+1))
+
+    while [ "$count" -le "$end" ]; do
+        echo "$count"
+        count=$(($count+1))
     done
 }
 
